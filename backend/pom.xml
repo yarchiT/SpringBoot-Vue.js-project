@@ -35,6 +35,7 @@
                             <goal>copy-resources</goal>
                         </goals>
                         <configuration>
+                             <mainClass>com.kekker.app.Application</mainClass>
                             <outputDirectory>src/main/resources/public</outputDirectory>
                             <overwrite>true</overwrite>
                             <resources>
