@@ -1,23 +1,51 @@
 package com.kekker.app.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.*;
 
 
 @Entity
 public class User {
 
+    @Id
     private String nickName; // user's id -> must me unique
+
+    @NotNull
+    @Size(max=100)
+    @Column(unique = true)
     private String email; // also unique
+
+    @NotNull
+    @Size(max = 128)
     private String password;
-    private String first_Name;
-    private String last_Name;
+
+    @NotNull
+    @Size(max=120)
+    private String firstName;
+
+    @NotNull
+    @Size(max=120)
+    private String lastName;
+
+    @NotNull
+    @Lob
     private byte[] avatar;
+
+    @NotNull
+    @Size(max = 120)
     private String bio;
+
+    @NotNull
+    @Size(max = 15)
+    @Column
     private String gender;
 
-    private Set<Kek> keks = new HashSet<Kek>();   // array of all written keks by user
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
+    private Set<Kek> keks;   // array of all written keks by user
 
+    
     public String getNickName() {
         return nickName;
     }
@@ -42,20 +70,20 @@ public class User {
         this.password = password;
     }
 
-    public String getFirst_Name() {
-        return first_Name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setFirst_Name(String first_Name) {
-        this.first_Name = first_Name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getLast_Name() {
-        return last_Name;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setLast_Name(String last_Name) {
-        this.last_Name = last_Name;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public byte[] getAvatar() {
