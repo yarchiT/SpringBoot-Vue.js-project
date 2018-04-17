@@ -1,8 +1,10 @@
 package com.kekker.app.model;
 
-import java.util.HashSet;
-import java.util.Set;
+import javax.persistence.*;
+import java.util.*;
 
+
+@Entity
 public class User {
 
     private String nickName; // user's id -> must me unique
