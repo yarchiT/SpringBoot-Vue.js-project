@@ -1,20 +1,29 @@
 package com.kekker.app.model;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 public class Message {
 
-    private int id;
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
+    @NotNull
+    private long id;
+
+//todo: change message mapping
     private int userFromId;
     private int userToId;
     private Date creationDAte;
     private String text;
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
