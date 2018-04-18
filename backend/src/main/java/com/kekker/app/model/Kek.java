@@ -11,6 +11,7 @@ import java.util.Set;
 
 // post in our app where user can add text image etc
 @Entity
+@Table(name = "kek")
 public class Kek {
 
     @Id

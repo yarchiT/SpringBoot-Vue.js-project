@@ -7,6 +7,7 @@ import java.util.*;
 
 
 @Entity
+@Table(name = "user")
 public class User {
 
     @Id
@@ -45,7 +46,7 @@ public class User {
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
     private Set<Kek> keks;   // array of all written keks by user
 
-    
+
     public String getNickName() {
         return nickName;
     }
