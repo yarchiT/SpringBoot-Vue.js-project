@@ -25,6 +25,7 @@ public class Kek {
     private byte[] image;
 
     @NotNull
+    @Temporal(TemporalType.DATE)
     private Date createDate;
 
     @NotNull

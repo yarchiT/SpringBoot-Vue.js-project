@@ -29,6 +29,7 @@ public class Comment {
     private String text;
 
     @NotNull
+    @Temporal(TemporalType.DATE)
     private Date creationDate;
 
     public long getId() {
