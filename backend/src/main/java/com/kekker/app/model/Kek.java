@@ -10,6 +10,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 // post in our app where user can add text image etc
+@Entity
 public class Kek {
 
     @Id

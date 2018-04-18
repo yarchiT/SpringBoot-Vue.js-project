@@ -4,6 +4,7 @@ package com.kekker.app.model;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+@Entity
 public class Reaction {
 
     @Id
