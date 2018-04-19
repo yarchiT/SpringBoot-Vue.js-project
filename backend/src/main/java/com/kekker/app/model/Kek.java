@@ -11,7 +11,7 @@ import java.util.Set;
 
 // post in our app where user can add text image etc
 @Entity
-@Table(name = "kek")
+@Table(name = "keks")
 public class Kek {
 
     @Id
@@ -35,6 +35,7 @@ public class Kek {
     @JoinColumn(name = "owner_id")
     private User owner;
 
+    // todo
     @NotNull
     @OneToMany(mappedBy = "kek", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Comment> comments;
@@ -90,5 +91,13 @@ public class Kek {
 
     public void setOwner(User owner) {
         this.owner = owner;
+    }
+
+    public Set<Reaction> getReactions() {
+        return reactions;
+    }
+
+    public void setReactions(Set<Reaction> reactions) {
+        this.reactions = reactions;
     }
 }

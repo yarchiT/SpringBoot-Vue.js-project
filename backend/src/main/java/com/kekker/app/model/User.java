@@ -2,12 +2,13 @@ package com.kekker.app.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
 import javax.validation.constraints.Size;
 import java.util.*;
 
 
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 public class User {
 
     @Id
@@ -15,7 +16,6 @@ public class User {
 
     @NotNull
     @Size(max=100)
-    @Column(unique = true)
     private String email; // also unique
 
     @NotNull
@@ -43,8 +43,13 @@ public class User {
     @Column
     private String gender;
 
-    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
+    @NotNull
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Kek> keks;   // array of all written keks by user
+
+    @Null
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<Comment> comments;   // array of all written comments by user
 
 
     public String getNickName() {
@@ -118,4 +123,12 @@ public class User {
     public void setKeks(Set<Kek> keks) {
         this.keks = keks;
     }
+
+   /* public Set<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(Set<Comment> comments) {
+        this.comments = comments;
+    }*/
 }

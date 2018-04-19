@@ -7,23 +7,13 @@ import javax.validation.constraints.Size;
 import java.util.Date;
 
 @Entity
-@Table(name = "comment")
+@Table(name = "comments")
 public class Comment {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     @NotNull
     private long id;
-
-    @NotNull
-    @OneToOne
-    @JoinColumn(name = "owner_id")
-    private User owner;
-
-    @NotNull
-    @ManyToOne
-    @JoinColumn(name = "kek_id", nullable = false)
-    private Kek kek;
 
     @NotNull
     @Size(max = 150)
@@ -33,6 +23,18 @@ public class Comment {
     @Temporal(TemporalType.DATE)
     private Date creationDate;
 
+    @NotNull
+    @ManyToOne
+    @JoinColumn(name = "owner_id", nullable = false)
+    private User owner;
+
+    @NotNull
+    @ManyToOne
+    @JoinColumn(name = "kek_id", nullable = false)
+    private Kek kek;
+
+    // Long kek_id
+
     public long getId() {
         return id;
     }
@@ -41,13 +43,13 @@ public class Comment {
         this.id = id;
     }
 
-    public User getOwner() {
+   /* public User getOwner() {
         return owner;
     }
 
     public void setOwner(User owner) {
         this.owner = owner;
-    }
+    }*/
 
     public Kek getKek() {
         return kek;
