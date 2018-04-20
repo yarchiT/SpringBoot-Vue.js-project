@@ -1,7 +1,6 @@
 <template>
   <div id="app">
-      <Navigation></Navigation>
-    <img src="./assets/logo.png">
+    <Navigation></Navigation>
     <router-view/>
   </div>
 </template>
@@ -11,18 +10,18 @@
 export default {
   name: 'App',
   components: {
-    'Navigation': Navigation
+    'Navigation': Navigation,
   }
 }
 </script>
 
 <style>
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+   font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  margin-top: 20px;
 }
 </style>

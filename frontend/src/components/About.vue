@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>About</h1>
+    <img src="../assets/logo.svg">
     <p>Here is some information. This is the about page</p>
   </div>
 </template>
