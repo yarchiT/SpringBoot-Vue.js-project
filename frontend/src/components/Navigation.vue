@@ -3,12 +3,19 @@
       <nav class="navbar"  v-on:click.prevent>
         <router-link class="logo" v-bind:key="0"
                      :to="`/`">Kekker</router-link>
+
        <!-- <a class="logo" href="/"><img src="../assets/logo.svg"/></a>-->
-        <div class="link-on-left">
-          <router-link class="spacing" v-for="routes in links"
+        <div v-if="!this.$store.state.isLoggedIn" class="home-nav link-on-right">
+          <router-link class="spacing" v-for="routes in homeLinks"
                        v-bind:key="routes.id"
                        :to="`${routes.page}`">{{routes.text}}</router-link>
         </div>
+
+        <div v-else-if="this.$store.state.isLoggedIn" class="user-nav link-on-right">
+          <router-link class="spacing" v-for="routes in userLinks"
+                       v-bind:key="routes.id"
+                       :to="`${routes.page}`">{{routes.text}}</router-link>
+          <a v-on:click.prevent="logout()">{{text}}</a></div>
       </nav>
   </div>
 </template>
@@ -18,7 +25,7 @@
     name: 'Navigation', // this is the name of the component
     data() {
       return {
-        links: [
+        homeLinks: [
           {
             id: 0,
             text: 'About',
@@ -29,7 +36,27 @@
             text: 'Login',
             page:'/login'
           }
-        ]
+        ],
+        userLinks:[
+          {
+            id: 0,
+            text: 'Timeline',
+            page:'/timeline'
+          },
+          {
+            id: 1,
+            text: 'Profile',
+            page:'/profile'
+          }
+        ],
+        text: 'Log out'
+      }
+    },
+    methods: {
+      logout: function () {
+        this.$store.state.isLoggedIn = false;
+        window.localStorage.clear();
+        this.$router.push("/")
       }
     }
   }
@@ -39,7 +66,7 @@
   .logo{
     float: left;
   }
-  .link-on-left{
+  .link-on-right{
     float: right;
   }
   nav{

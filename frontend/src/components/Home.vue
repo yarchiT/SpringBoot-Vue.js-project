@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="home">
     <h1>Home</h1>
     <p>Home dear home</p>
   </div>
@@ -11,4 +11,7 @@
   }
 </script>
 <style>
+  .home{
+    padding: 2em 2rem;
+  }
 </style>

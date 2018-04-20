@@ -6,6 +6,8 @@
       <p>You are here because you are User </p>
     </div>
 
+    <router-view></router-view>
+
   </div>
 
 </template>
@@ -36,7 +38,6 @@
   .user {
     padding: 2em 2rem;
   }
-
 
   h1{
     color: purple;
