@@ -20,6 +20,7 @@ CREATE TABLE IF NOT EXISTS kekker.keks(
   owner VARCHAR(40) REFERENCES kekker.users(nickName)/*Meybe add FOREGIN KEY*/
 );
 
+
 CREATE TABLE IF NOT EXISTS kekker.reactions(
   id INT PRIMARY KEY ,
   type VARCHAR(50) NOT NULL ,
