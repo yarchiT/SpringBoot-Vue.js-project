@@ -9,7 +9,7 @@ import java.util.Collection;
 
 public interface KekRepository extends JpaRepository<Kek, Long>{
 
-    @Query("select k.text, c from Kek k join fetch k.comments c where k.owner.nickName=?1")
+    @Query("select k from Kek k where k.owner.nickName=?1")
     Collection<Kek> findKeksForOwner(String nickName);
 
   //  Collection<Kek> findUserKeks(String nickname);

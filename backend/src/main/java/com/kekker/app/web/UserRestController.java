@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.xml.ws.Response;
 import java.util.Collection;
 import java.util.List;
 
@@ -38,6 +39,25 @@ class UserRestController {
     @PostMapping("/users")
     public User createUser(@Valid @RequestBody User user) {
         return userRepository.save(user);
+    }
+
+    @PostMapping("users/login")
+    public ResponseEntity<User> login(@RequestParam("nickName") String nickName,
+                               @RequestParam("password") String pass)
+    {
+        if ("".equals(nickName) || "".equals(pass))
+        {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+        }
+
+        User user = getUserByNickName(nickName);
+
+        if (user != null && user.getPassword().equals(pass))
+        {
+            return ResponseEntity.status(HttpStatus.OK).body(user);
+        }
+
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
     }
 
     //Update
