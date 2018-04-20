@@ -1,10 +1,13 @@
 package com.kekker.app.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -12,7 +15,7 @@ import java.util.Set;
 // post in our app where user can add text image etc
 @Entity
 @Table(name = "keks")
-public class Kek {
+public class Kek implements Serializable{
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
@@ -38,10 +41,12 @@ public class Kek {
     // todo
     @NotNull
     @OneToMany(mappedBy = "kek", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
     private Set<Comment> comments;
 
     @NotNull
     @OneToMany(mappedBy = "kek", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
     private Set<Reaction> reactions;
 
 

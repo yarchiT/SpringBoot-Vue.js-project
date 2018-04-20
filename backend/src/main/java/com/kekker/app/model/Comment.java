@@ -4,11 +4,12 @@ import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity
 @Table(name = "comments")
-public class Comment {
+public class Comment implements Serializable {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
@@ -29,8 +30,8 @@ public class Comment {
     private User owner;
 
     @NotNull
-    @ManyToOne
-    @JoinColumn(name = "kek_id", nullable = false)
+    @ManyToOne()
+   // @JoinColumn(name = "kek_id", nullable = false)
     private Kek kek;
 
     // Long kek_id

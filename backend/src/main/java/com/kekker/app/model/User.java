@@ -1,15 +1,18 @@
 package com.kekker.app.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 import java.util.*;
 
 
 @Entity
 @Table(name = "users")
-public class User {
+public class User implements Serializable{
 
     @Id
     private String nickName; // user's id -> must me unique
@@ -30,7 +33,7 @@ public class User {
     @Size(max=120)
     private String lastName;
 
-    @NotNull
+    @Null
     @Lob
     private byte[] avatar;
 
@@ -44,11 +47,13 @@ public class User {
     private String gender;
 
     @NotNull
+    @JsonIgnore
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Kek> keks;   // array of all written keks by user
 
     @Null
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
     private Set<Comment> comments;   // array of all written comments by user
 
 
@@ -124,11 +129,11 @@ public class User {
         this.keks = keks;
     }
 
-   /* public Set<Comment> getComments() {
+    public Set<Comment> getComments() {
         return comments;
     }
 
     public void setComments(Set<Comment> comments) {
         this.comments = comments;
-    }*/
+    }
 }

@@ -24,8 +24,6 @@ public class Reaction {
     @JoinColumn(name = "kek_id", nullable = false)
     private Kek kek;
 
-
-
     public long getId() {
         return id;
     }
