@@ -21,7 +21,7 @@
     data() {
       return {
         loginDetails : {
-          residentID : '',
+          userName : '',
           password : ''
         },
       }

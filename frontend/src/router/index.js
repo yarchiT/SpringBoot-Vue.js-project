@@ -4,7 +4,7 @@ import Home from '@/components/Home'
 import About from '@/components/About'
 
 import login from '../components/login/login.vue';
-import logout from '../components/login/logout.vue';
+import signUp from '../components/signup/signup.vue';
 import admin from '../components/admin/admin.vue';
 import user from '../components/user/user.vue';
 import userTimeline from '../components/user/timeline.vue'
@@ -36,6 +36,11 @@ Vue.use(Navbar);
       component:login
     },
     {
+      name:'signUp',
+      path:'/signUp',
+      component:signUp
+    },
+    {
       path: '/about',
       name: 'about',
       component: About
@@ -63,12 +68,6 @@ Vue.use(Navbar);
           // when /user/:id/timeline is matched
           path: '/timeline',
           component: userTimeline
-        },
-        {
-          // UserTimeline will be rendered inside User's <router-view>
-          // when /user/:id/timeline is matched
-          path: '/logout',
-          component: logout
         }
       ]
     },

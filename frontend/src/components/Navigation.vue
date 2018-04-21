@@ -15,7 +15,8 @@
           <router-link class="spacing" v-for="routes in userLinks"
                        v-bind:key="routes.id"
                        :to="`${routes.page}`">{{routes.text}}</router-link>
-          <a v-on:click.prevent="logout()">{{text}}</a></div>
+          <a class="spacing" v-on:click="logout()">{{text}} </a>
+        </div>
       </nav>
   </div>
 </template>
@@ -35,6 +36,11 @@
             id: 1,
             text: 'Login',
             page:'/login'
+          },
+          {
+            id: 2,
+            text: 'Sign up',
+            page:'/signUp'
           }
         ],
         userLinks:[
@@ -88,6 +94,7 @@
     font-size:14px;
     text-decoration:none !important;
     line-height:1;
+    cursor: pointer;
   /*  background-color:transparent;
 
     -webkit-transition:background-color 0.25s;
