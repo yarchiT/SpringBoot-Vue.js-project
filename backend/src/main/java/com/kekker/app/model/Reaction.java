@@ -1,12 +1,15 @@
 package com.kekker.app.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "reactions")
-public class Reaction {
+public class Reaction implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -15,13 +18,13 @@ public class Reaction {
     @NotNull
     private String type;
 
-    @OneToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_nick_name")
+    private User owner;
 
     @NotNull
-    @ManyToOne
-    @JoinColumn(name = "kek_id", nullable = false)
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JsonIgnore
     private Kek kek;
 
     public long getId() {
@@ -46,6 +49,14 @@ public class Reaction {
 
     public void setKek(Kek kek) {
         this.kek = kek;
+    }
+
+    public User getOwner() {
+        return owner;
+    }
+
+    public void setOwner(User owner) {
+        this.owner = owner;
     }
 
     public enum ReactionTypes{

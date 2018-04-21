@@ -35,19 +35,16 @@ public class Kek implements Serializable{
 
     @NotNull
     @ManyToOne
-    @JoinColumn(name = "owner_id")
+    @JoinColumn(name = "owner_nick_name")
     private User owner;
 
-    // todo
     @NotNull
-    @OneToMany(mappedBy = "kek", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonIgnore
+    @OneToMany(mappedBy = "kek", fetch = FetchType.LAZY)
     private Set<Comment> comments;
 
     @NotNull
-    @OneToMany(mappedBy = "kek", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonIgnore
-    private Set<Reaction> reactions;
+    @OneToMany(mappedBy = "kek", fetch = FetchType.LAZY)
+    private Set<Reaction> reactions = new HashSet<Reaction>();
 
 
     public long getId() {

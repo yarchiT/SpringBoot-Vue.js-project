@@ -56,6 +56,10 @@ public class User implements Serializable{
     @JsonIgnore
     private Set<Comment> comments;   // array of all written comments by user
 
+    @Null
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
+    private Set<Reaction> reactions;   // array of all written comments by user
 
     public String getNickName() {
         return nickName;

@@ -1,5 +1,7 @@
 package com.kekker.app.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
@@ -26,12 +28,12 @@ public class Comment implements Serializable {
 
     @NotNull
     @ManyToOne
-    @JoinColumn(name = "owner_id", nullable = false)
+    @JoinColumn(name = "owner_nick_name", nullable = false)
     private User owner;
 
     @NotNull
-    @ManyToOne()
-   // @JoinColumn(name = "kek_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
     private Kek kek;
 
     // Long kek_id
@@ -44,13 +46,13 @@ public class Comment implements Serializable {
         this.id = id;
     }
 
-   /* public User getOwner() {
+   public User getOwner() {
         return owner;
     }
 
     public void setOwner(User owner) {
         this.owner = owner;
-    }*/
+    }
 
     public Kek getKek() {
         return kek;

@@ -2,16 +2,15 @@ package com.kekker.app.web;
 
 import com.kekker.app.model.Kek;
 import com.kekker.app.repository.KekRepository;
-import com.kekker.app.repository.UserRepository;
+import com.kekker.app.view.MyKekDto;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
 import javax.validation.Valid;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/api")
@@ -38,8 +37,10 @@ public class KekRestController {
 
     //Get all keks for user
     @GetMapping("/users/{nickname}/keks")
-    public Collection<Kek> getUserKeks(@PathVariable("nickname") String nickname) {
-        return kekRepository.findKeksForOwner(nickname);
+    public Collection<?> getUserKeks(@PathVariable("nickname") String nickname) {
+        Collection<?> temp = kekRepository.findUserKeks(nickname);
+        return temp;
+        //return kekRepository.findUserKeks(nickname);
     }
 
     //Create new
