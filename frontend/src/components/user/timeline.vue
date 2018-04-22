@@ -31,6 +31,7 @@
       }
     },
     created() {
+      //todo: send request to our server instead of this dummy
       axios.get(`http://jsonplaceholder.typicode.com/posts`)
         .then(response => {
           // JSON responses are automatically parsed.

@@ -35,6 +35,7 @@
         </div>
         <!--Right column-->
         <div class="w3-twothird">
+          <AddKek></AddKek>
           <Keks v-bind:keks="userDetails.keks"></Keks>
           <!--add timeline here-->
 
@@ -48,6 +49,8 @@
 
 <script>
   import Keks from './keks.vue';
+  import AddKek from './addkek';
+
   export default {
     name: 'profile', //this is the name of the component
     data(){
@@ -65,7 +68,8 @@
         }
     },
     components:{
-        'Keks': Keks
+        'Keks': Keks,
+        'AddKek': AddKek
     },
     methods:{
         fillInfo: function () {
