@@ -170,4 +170,11 @@
   }
 
 
+  @media only screen and (max-width: 850px) {
+    .loginModal {
+      padding: 0;
+    }
+  }
+
+
 </style>

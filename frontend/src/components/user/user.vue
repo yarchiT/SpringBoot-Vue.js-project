@@ -1,10 +1,5 @@
 <template>
   <div class="user">
-    <h1>UserPage</h1>
-
-    <div class="user__container">
-      <p>You are here because you are User </p>
-    </div>
 
     <router-view></router-view>
 

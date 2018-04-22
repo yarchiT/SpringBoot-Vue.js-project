@@ -176,4 +176,11 @@
       width: 100%;
     }
   }
+
+  @media only screen and (max-width: 920px) {
+    .signUpModal {
+      padding: 0;
+    }
+  }
+
 </style>
