@@ -69,6 +69,8 @@
 </script>
 
 <style>
+  @import '../assets/styles/toastr.min.css';
+
   .logo{
     float: left;
   }
