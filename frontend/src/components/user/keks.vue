@@ -15,6 +15,12 @@
             <div class="icon_middle"><img :src="getLoysImg()" align="middle" class="reaction_icons"><span>{{kek.reactions.loys}}</span></div>
             <div class="icon_middle"><img :src="getDisLoysImg()" align="middle" class="reaction_icons"><span>{{kek.reactions.disloys}}</span></div>
           </div>
+          <hr>
+          <button class="comments_btn" v-on:click="toggle">Comments</button>
+
+          <div class="comments_area"  v-show="showComment">
+            <Comments v-bind:comments="kek.comments"></Comments>
+          </div>
 
         </div>
       </div>
@@ -23,12 +29,14 @@
 </template>
 
 <script>
+  import Comments from './comments.vue'
   export default {
     name: 'keks', //this is the name of the component
+
     data(){
-      return{
-        keks:''
-      }
+        return{
+            showComment:false
+        }
     },
 
     props:{
@@ -38,6 +46,10 @@
         }
     },
 
+    components:{
+      'Comments': Comments
+    },
+
     methods:{
 
       getImgUrl(pet) {
@@ -45,6 +57,15 @@
         return images('./' + pet )
       },
 
+
+      toggle(){
+        this.showComment = !this.showComment;
+        if(this.showComment){
+          document.getElementsByClassName("comments_btn").style.position = 'inherit';
+        }else{
+          document.getElementsByClassName("comments_btn").style.position = 'absolute';
+        }
+      },
       getLoysImg(){
         return this.getImgUrl("loys.svg")
       },
@@ -117,6 +138,16 @@
   }
   .icon_middle span {
     display:block;
+  }
+
+  .w3-container .comments_btn{
+    position: absolute;
+    left: 3%;
+    bottom: 3%;
+  }
+
+  .comments_area{
+    bottom: 3%;
   }
 
 </style>

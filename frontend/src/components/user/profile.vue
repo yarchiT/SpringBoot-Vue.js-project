@@ -84,7 +84,23 @@
               owner_nickName:"kimasik",
               owner_avatar:"user.jpg",
               kek_image:"../../assets/kekPhoto.jpg",
-              reactions:{loys:24,disloys:3}
+              reactions:{loys:24,disloys:3},
+              comments:[
+                {
+                    owner_id:"kimano",
+                    owner_avatar:"trump.jpeg",
+                    owner_nickname:"i_love_ivanka",
+                    text:"Wow..get mann bro",
+                    date:"12/03/2001"
+                },
+                {
+                  owner_id:"kimano",
+                  owner_avatar:"trump.jpeg",
+                  owner_nickname:"i_love_ivanka",
+                  text:"Make America great again!",
+                  date:"22/03/2017"
+                }
+              ]
             },
             {
               text:"Ohhh curly brackets, where is my spiner?",
@@ -93,7 +109,16 @@
               owner_nickName:"kimasik",
               owner_avatar:"user.jpg",
               kek_image:"../../assets/kekPhoto.jpg",
-              reactions:{loys:43,disloys:13}
+              reactions:{loys:43,disloys:13},
+              comments:[
+                {
+                  owner_id:"kimano",
+                  owner_avatar:"user.jpg",
+                  owner_nickname:"kimasik",
+                  text:"Smoke weeds every day bro!",
+                  date:"12/12/2012"
+                }
+              ]
             },
             {
               text:"'Ebat` Kapat`'-told me father and showed his dick to my sister",
@@ -102,7 +127,16 @@
               owner_nickName:"kimasik",
               owner_avatar:"user.jpg",
               kek_image:"../../assets/kekPhoto.jpg",
-              reactions:{loys:143,disloys:43}
+              reactions:{loys:143,disloys:43},
+              comments:[
+                {
+                  owner_id:"kimano",
+                  owner_avatar:"user.jpg",
+                  owner_nickname:"kimasik",
+                  text:"Swim!Dream!Love! And fuck bro!",
+                  date:"12/12/2012"
+                }
+              ]
             }
           ]
         },
