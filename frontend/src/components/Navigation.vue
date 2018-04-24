@@ -69,6 +69,8 @@
 </script>
 
 <style>
+  @import '../assets/styles/toastr.min.css';
+
   .logo{
     float: left;
   }
@@ -84,6 +86,7 @@
     position: fixed; /* Set the navbar to fixed position */
     top: 0; /* Position the navbar at the top of the page */
     width: 100%; /* Full width */
+    z-index: 500;
   }
 
   nav a{
