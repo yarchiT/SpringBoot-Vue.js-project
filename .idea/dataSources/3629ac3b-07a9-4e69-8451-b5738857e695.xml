@@ -18,8 +18,8 @@
     </database>
     <schema id="6" parent="2" name="public">
       <ObjectId>2200</ObjectId>
-      <IntrospectionTimestamp>2018-04-24.21:38:02.149</IntrospectionTimestamp>
-      <IntrospectionStateNumber>710</IntrospectionStateNumber>
+      <IntrospectionTimestamp>2018-04-25.22:34:48.065</IntrospectionTimestamp>
+      <IntrospectionStateNumber>995</IntrospectionStateNumber>
       <Current>1</Current>
       <Visible>1</Visible>
     </schema>
@@ -39,239 +39,286 @@
       <ObjectId>12121</ObjectId>
     </schema>
     <sequence id="12" parent="6" name="hibernate_sequence">
-      <ObjectId>16477</ObjectId>
-      <StateNumber>701</StateNumber>
+      <ObjectId>17109</ObjectId>
+      <StateNumber>983</StateNumber>
       <SequenceIdentity>1</SequenceIdentity>
     </sequence>
     <table id="13" parent="6" name="comments">
-      <ObjectId>16479</ObjectId>
-      <StateNumber>707</StateNumber>
+      <ObjectId>17111</ObjectId>
+      <StateNumber>990</StateNumber>
     </table>
     <table id="14" parent="6" name="keks">
-      <ObjectId>16484</ObjectId>
-      <StateNumber>709</StateNumber>
+      <ObjectId>17116</ObjectId>
+      <StateNumber>992</StateNumber>
     </table>
     <table id="15" parent="6" name="reactions">
-      <ObjectId>16489</ObjectId>
-      <StateNumber>710</StateNumber>
+      <ObjectId>17124</ObjectId>
+      <StateNumber>993</StateNumber>
     </table>
-    <table id="16" parent="6" name="users">
-      <ObjectId>16497</ObjectId>
-      <StateNumber>710</StateNumber>
+    <table id="16" parent="6" name="user_followers">
+      <ObjectId>17132</ObjectId>
+      <StateNumber>995</StateNumber>
     </table>
-    <column id="17" parent="13" name="id">
+    <table id="17" parent="6" name="users">
+      <ObjectId>17140</ObjectId>
+      <StateNumber>995</StateNumber>
+    </table>
+    <column id="18" parent="13" name="id">
       <Position>1</Position>
       <DataType>bigint|0</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>702</StateNumber>
+      <StateNumber>984</StateNumber>
     </column>
-    <column id="18" parent="13" name="creation_date">
+    <column id="19" parent="13" name="creation_date">
       <Position>2</Position>
       <DataType>date|0</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>702</StateNumber>
+      <StateNumber>984</StateNumber>
     </column>
-    <column id="19" parent="13" name="text">
+    <column id="20" parent="13" name="text">
       <Position>3</Position>
       <DataType>varchar(150)|0</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>702</StateNumber>
+      <StateNumber>984</StateNumber>
     </column>
-    <column id="20" parent="13" name="kek_id">
+    <column id="21" parent="13" name="kek_id">
       <Position>4</Position>
       <DataType>bigint|0</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>702</StateNumber>
+      <StateNumber>984</StateNumber>
     </column>
-    <column id="21" parent="13" name="owner_nick_name">
+    <column id="22" parent="13" name="owner_nick_name">
       <Position>5</Position>
       <DataType>varchar(255)|0</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>702</StateNumber>
+      <StateNumber>984</StateNumber>
     </column>
-    <index id="22" parent="13" name="comments_pkey">
-      <ObjectId>16482</ObjectId>
+    <index id="23" parent="13" name="comments_pkey">
+      <ObjectId>17114</ObjectId>
       <ColNames>id</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="23" parent="13" name="comments_pkey">
-      <ObjectId>16483</ObjectId>
+    <key id="24" parent="13" name="comments_pkey">
+      <ObjectId>17115</ObjectId>
       <ColNames>id</ColNames>
       <UnderlyingIndexName>comments_pkey</UnderlyingIndexName>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="24" parent="13" name="fkm6byepkowae3kjndayok1shg7">
-      <ObjectId>16505</ObjectId>
+    <foreign-key id="25" parent="13" name="fkm6byepkowae3kjndayok1shg7">
+      <ObjectId>17148</ObjectId>
       <ColNames>kek_id</ColNames>
-      <RefTableId>16484</RefTableId>
+      <RefTableId>17116</RefTableId>
       <RefColPositions>1</RefColPositions>
       <RefTableName>keks</RefTableName>
       <RefKeyName>keks_pkey</RefKeyName>
       <RefColNames>id</RefColNames>
     </foreign-key>
-    <foreign-key id="25" parent="13" name="fkonowyuodrxg6v0kaexw19vppx">
-      <ObjectId>16510</ObjectId>
+    <foreign-key id="26" parent="13" name="fkonowyuodrxg6v0kaexw19vppx">
+      <ObjectId>17153</ObjectId>
       <ColNames>owner_nick_name</ColNames>
-      <RefTableId>16497</RefTableId>
+      <RefTableId>17140</RefTableId>
       <RefColPositions>1</RefColPositions>
       <RefTableName>users</RefTableName>
       <RefKeyName>users_pkey</RefKeyName>
       <RefColNames>nick_name</RefColNames>
     </foreign-key>
-    <column id="26" parent="14" name="id">
+    <column id="27" parent="14" name="id">
       <Position>1</Position>
       <DataType>bigint|0</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>703</StateNumber>
+      <StateNumber>985</StateNumber>
     </column>
-    <column id="27" parent="14" name="create_date">
+    <column id="28" parent="14" name="create_date">
       <Position>2</Position>
       <DataType>date|0</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>703</StateNumber>
+      <StateNumber>985</StateNumber>
     </column>
-    <column id="28" parent="14" name="image">
+    <column id="29" parent="14" name="image_url">
       <Position>3</Position>
-      <DataType>oid|0</DataType>
-      <StateNumber>703</StateNumber>
+      <DataType>varchar(255)|0</DataType>
+      <StateNumber>985</StateNumber>
     </column>
-    <column id="29" parent="14" name="text">
+    <column id="30" parent="14" name="text">
       <Position>4</Position>
       <DataType>varchar(200)|0</DataType>
-      <StateNumber>703</StateNumber>
+      <StateNumber>985</StateNumber>
     </column>
-    <column id="30" parent="14" name="owner_nick_name">
+    <column id="31" parent="14" name="owner_nick_name">
       <Position>5</Position>
       <DataType>varchar(255)|0</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>703</StateNumber>
+      <StateNumber>985</StateNumber>
     </column>
-    <index id="31" parent="14" name="keks_pkey">
-      <ObjectId>16487</ObjectId>
+    <index id="32" parent="14" name="keks_pkey">
+      <ObjectId>17122</ObjectId>
       <ColNames>id</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="32" parent="14" name="keks_pkey">
-      <ObjectId>16488</ObjectId>
+    <key id="33" parent="14" name="keks_pkey">
+      <ObjectId>17123</ObjectId>
       <ColNames>id</ColNames>
       <UnderlyingIndexName>keks_pkey</UnderlyingIndexName>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="33" parent="14" name="fkijj6bijkt78l2fe30ah5kd9bf">
-      <ObjectId>16515</ObjectId>
+    <foreign-key id="34" parent="14" name="fkijj6bijkt78l2fe30ah5kd9bf">
+      <ObjectId>17158</ObjectId>
       <ColNames>owner_nick_name</ColNames>
-      <RefTableId>16497</RefTableId>
+      <RefTableId>17140</RefTableId>
       <RefColPositions>1</RefColPositions>
       <RefTableName>users</RefTableName>
       <RefKeyName>users_pkey</RefKeyName>
       <RefColNames>nick_name</RefColNames>
     </foreign-key>
-    <column id="34" parent="15" name="id">
+    <column id="35" parent="15" name="id">
       <Position>1</Position>
       <DataType>bigint|0</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>704</StateNumber>
+      <StateNumber>986</StateNumber>
     </column>
-    <column id="35" parent="15" name="type">
+    <column id="36" parent="15" name="type">
       <Position>2</Position>
       <DataType>varchar(255)|0</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>704</StateNumber>
+      <StateNumber>986</StateNumber>
     </column>
-    <column id="36" parent="15" name="kek_id">
+    <column id="37" parent="15" name="kek_id">
       <Position>3</Position>
       <DataType>bigint|0</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>704</StateNumber>
+      <StateNumber>986</StateNumber>
     </column>
-    <column id="37" parent="15" name="user_nick_name">
+    <column id="38" parent="15" name="user_nick_name">
       <Position>4</Position>
       <DataType>varchar(255)|0</DataType>
-      <StateNumber>704</StateNumber>
+      <StateNumber>986</StateNumber>
     </column>
-    <index id="38" parent="15" name="reactions_pkey">
-      <ObjectId>16495</ObjectId>
+    <index id="39" parent="15" name="reactions_pkey">
+      <ObjectId>17130</ObjectId>
       <ColNames>id</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="39" parent="15" name="reactions_pkey">
-      <ObjectId>16496</ObjectId>
+    <key id="40" parent="15" name="reactions_pkey">
+      <ObjectId>17131</ObjectId>
       <ColNames>id</ColNames>
       <UnderlyingIndexName>reactions_pkey</UnderlyingIndexName>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="40" parent="15" name="fkf99oybqk8eoa1u4a1dhyu57ej">
-      <ObjectId>16520</ObjectId>
+    <foreign-key id="41" parent="15" name="fkf99oybqk8eoa1u4a1dhyu57ej">
+      <ObjectId>17163</ObjectId>
       <ColNames>kek_id</ColNames>
-      <RefTableId>16484</RefTableId>
+      <RefTableId>17116</RefTableId>
       <RefColPositions>1</RefColPositions>
       <RefTableName>keks</RefTableName>
       <RefKeyName>keks_pkey</RefKeyName>
       <RefColNames>id</RefColNames>
     </foreign-key>
-    <foreign-key id="41" parent="15" name="fkl7q5fqk45fo1ao24ng9mwnnoo">
-      <ObjectId>16525</ObjectId>
+    <foreign-key id="42" parent="15" name="fkl7q5fqk45fo1ao24ng9mwnnoo">
+      <ObjectId>17168</ObjectId>
       <ColNames>user_nick_name</ColNames>
-      <RefTableId>16497</RefTableId>
+      <RefTableId>17140</RefTableId>
       <RefColPositions>1</RefColPositions>
       <RefTableName>users</RefTableName>
       <RefKeyName>users_pkey</RefKeyName>
       <RefColNames>nick_name</RefColNames>
     </foreign-key>
-    <column id="42" parent="16" name="nick_name">
+    <column id="43" parent="16" name="following_nick_name">
       <Position>1</Position>
       <DataType>varchar(255)|0</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>705</StateNumber>
+      <StateNumber>987</StateNumber>
     </column>
-    <column id="43" parent="16" name="avatar">
+    <column id="44" parent="16" name="user_nick_name">
       <Position>2</Position>
-      <DataType>oid|0</DataType>
-      <StateNumber>705</StateNumber>
+      <DataType>varchar(255)|0</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>987</StateNumber>
     </column>
-    <column id="44" parent="16" name="bio">
+    <index id="45" parent="16" name="user_followers_pkey">
+      <ObjectId>17138</ObjectId>
+      <ColNames>following_nick_name
+user_nick_name</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="46" parent="16" name="user_followers_pkey">
+      <ObjectId>17139</ObjectId>
+      <ColNames>following_nick_name
+user_nick_name</ColNames>
+      <UnderlyingIndexName>user_followers_pkey</UnderlyingIndexName>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="47" parent="16" name="fkfgrd1sakcrpjms3lllgocwdrv">
+      <ObjectId>17178</ObjectId>
+      <ColNames>following_nick_name</ColNames>
+      <RefTableId>17140</RefTableId>
+      <RefColPositions>1</RefColPositions>
+      <RefTableName>users</RefTableName>
+      <RefKeyName>users_pkey</RefKeyName>
+      <RefColNames>nick_name</RefColNames>
+    </foreign-key>
+    <foreign-key id="48" parent="16" name="fkk692heka0x6jd2duyp0ne08yr">
+      <ObjectId>17173</ObjectId>
+      <ColNames>user_nick_name</ColNames>
+      <RefTableId>17140</RefTableId>
+      <RefColPositions>1</RefColPositions>
+      <RefTableName>users</RefTableName>
+      <RefKeyName>users_pkey</RefKeyName>
+      <RefColNames>nick_name</RefColNames>
+    </foreign-key>
+    <column id="49" parent="17" name="nick_name">
+      <Position>1</Position>
+      <DataType>varchar(255)|0</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>988</StateNumber>
+    </column>
+    <column id="50" parent="17" name="avatar_url">
+      <Position>2</Position>
+      <DataType>varchar(255)|0</DataType>
+      <StateNumber>988</StateNumber>
+    </column>
+    <column id="51" parent="17" name="bio">
       <Position>3</Position>
       <DataType>varchar(120)|0</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>705</StateNumber>
+      <StateNumber>988</StateNumber>
     </column>
-    <column id="45" parent="16" name="email">
+    <column id="52" parent="17" name="email">
       <Position>4</Position>
       <DataType>varchar(100)|0</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>705</StateNumber>
+      <StateNumber>988</StateNumber>
     </column>
-    <column id="46" parent="16" name="first_name">
+    <column id="53" parent="17" name="first_name">
       <Position>5</Position>
       <DataType>varchar(120)|0</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>705</StateNumber>
+      <StateNumber>988</StateNumber>
     </column>
-    <column id="47" parent="16" name="gender">
+    <column id="54" parent="17" name="gender">
       <Position>6</Position>
       <DataType>varchar(15)|0</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>705</StateNumber>
+      <StateNumber>988</StateNumber>
     </column>
-    <column id="48" parent="16" name="last_name">
+    <column id="55" parent="17" name="last_name">
       <Position>7</Position>
       <DataType>varchar(120)|0</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>705</StateNumber>
+      <StateNumber>988</StateNumber>
     </column>
-    <column id="49" parent="16" name="password">
+    <column id="56" parent="17" name="password">
       <Position>8</Position>
       <DataType>varchar(128)|0</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>705</StateNumber>
+      <StateNumber>988</StateNumber>
     </column>
-    <index id="50" parent="16" name="users_pkey">
-      <ObjectId>16503</ObjectId>
+    <index id="57" parent="17" name="users_pkey">
+      <ObjectId>17146</ObjectId>
       <ColNames>nick_name</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="51" parent="16" name="users_pkey">
-      <ObjectId>16504</ObjectId>
+    <key id="58" parent="17" name="users_pkey">
+      <ObjectId>17147</ObjectId>
       <ColNames>nick_name</ColNames>
       <UnderlyingIndexName>users_pkey</UnderlyingIndexName>
       <Primary>1</Primary>

@@ -36,6 +36,12 @@ class UserRestController {
         return userRepository.findByNickName(nickName);
     }
 
+    //Get by id
+    @GetMapping("/following/{nickName}")
+    public List<User> getUsersFollowings(@PathVariable("nickName") String nickName) {
+        return userRepository.findFollowersByNickName(nickName);
+    }
+
     //Create new
     @PostMapping("/users")
     public User createUser(@Valid @RequestBody User user) {
