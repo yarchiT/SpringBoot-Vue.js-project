@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="kek" v-for="kek in keks" v-bind:data-owner="kek.owner_id">
+    <div class="kek" v-for="kek in keks" v-bind:data-owner="kek.owner_id" v-bind:id="kek.id">
       <div class="w3-container w3-card w3-white" >
         <img :src="getImgUrl(kek.owner_avatar)" class="kek_owner_avatar">
         <h2 class="w3-text-grey w3-padding-16 kek_owner_nickname">{{kek.owner_nickName}}</h2>
@@ -12,17 +12,29 @@
           <hr>
 
           <div class="reactions">
-            <div class="icon_middle"><img :src="getLoysImg()" align="middle" class="reaction_icons"><span>{{kek.reactions.loys}}</span></div>
-            <div class="icon_middle"><img :src="getDisLoysImg()" align="middle" class="reaction_icons"><span>{{kek.reactions.disloys}}</span></div>
-          </div>
-          <hr>
+            <div class="container-fluid">
+
+              <section id="feedback">
+                <div class="row centered">
+                  <div class="col-xs-6" id="like">
+                    <a href="#" style="color: dodgerblue">{{kek.reactions.loys}} Loys</a>
+                  </div>
+                  <div class="col-xs-6" id="dislike">
+                    <a href="#" style="color: dodgerblue">{{kek.reactions.disloys}} Disloys</a>
+                  </div>
+                </div>
+              </section>
+            </div>
+            </div>
+          <br>
           <button class="comments_btn" v-on:click="toggle(kek)" v-bind:data-kekId="kek.id">Comments</button>
 
-          <div class="comments_area"  v-show="kek.showComment" v-bind:data-kekId="kek.id">
-            <Comments v-bind:comments="kek.comments"></Comments>
-          </div>
+
 
         </div>
+      </div>
+      <div class="comments_area"  v-show="kek.showComment" v-bind:data-kekId="kek.id" v-bind:class="{ borderForComments : kek.showComment }">
+        <Comments v-bind:comments="kek.comments"></Comments>
       </div>
     </div>
   </div>
@@ -124,7 +136,7 @@
   }
 
   .icon_middle {
-    width:10px;
+    width:20px;
     float: right;
     height: 15px;
   }
@@ -135,11 +147,40 @@
   .w3-container .comments_btn{
     position: absolute;
     left: 3%;
-    bottom: 3%;
+    bottom: 8%;
   }
 
   .comments_area{
+    margin-top: 4%;
     bottom: 3%;
+    border-color: dodgerblue;
+  }
+
+  .kek{
+    height: 50%;
+  }
+
+  .comments_btn{
+    background:none;
+    border:none;
+    margin:0;
+    padding:0;
+    color: dodgerblue;
+    outline:none;
+
+  }
+
+  .comments_btn:hover{
+    background: #eee;
+  }
+
+  .borderForComments{
+    border-style: solid;
+    border-width: thin;
+  }
+
+  .container-fluid{
+    width: 200px;
   }
 
 </style>
