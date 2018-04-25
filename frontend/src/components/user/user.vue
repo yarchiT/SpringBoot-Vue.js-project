@@ -16,7 +16,7 @@
     data() {
       return {
         loginDetails : {
-          userName : '',
+          nickName : '',
           password : ''
         },
       }

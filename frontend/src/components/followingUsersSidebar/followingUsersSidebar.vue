@@ -1,8 +1,6 @@
 <template>
   <div>
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
     <div class="w3-quarter">
       <div class="w3-white w3-text-grey w3-card-4">
         <div class="w3-display-container">
@@ -33,6 +31,10 @@
 </script>
 
 <style>
+
+  @import url(https://www.w3schools.com/w3css/4/w3.css);
+  @import url(https://fonts.googleapis.com/css?family=Roboto);
+  @import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css);
   .follower-div{
     padding-left: 10px;
     text-align: left;

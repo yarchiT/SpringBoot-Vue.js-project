@@ -9,7 +9,7 @@
       <hr>
 
       <label><b>Nickname</b></label>
-      <input type="text" placeholder="enter username" v-model="loginDetails.userName" required>
+      <input type="text" placeholder="enter username" v-model="loginDetails.nickName" required>
 
       <label><b>Password</b></label>
       <input type="password" placeholder="enter password" v-model="loginDetails.password" required>
@@ -33,7 +33,7 @@
     data() {
       return {
         loginDetails : {
-          userName : '',
+          nickName : '',
           password : ''
         },
         errorMsg: ''
@@ -45,24 +45,18 @@
         var app = this;
         loginService.login(this.loginDetails)
           .then(function(res) {
-            if(res.status === "success") {
               console.log("logged in");
+              console.log("res.data " + res.data);
+              console.log("res.token " + res.token);
               authUser.data = res.data;
-              authUser.token = res.token;
+            //  authUser.token = res.token;
               app.$store.state.isLoggedIn = true;
               window.localStorage.setItem('lbUser',JSON.stringify(authUser));
-              if(authUser.data.role_id === 'ADMIN') {
-                app.$router.push('/admin');
-              }else {
-                app.$router.push('/user');
-              }
-            }else {
-              app.$store.state.isLoggedIn = false;
-            }
+              console.log("before push");
+              app.$router.push('/profile');
           })
           .catch(function (err){
-            this.errorMsg = "sdf";
-            console.log(err + "pisun");
+            console.log(err);
           })
       },
       loginAuth:function () {
@@ -70,8 +64,6 @@
         const status =  JSON.parse(window.localStorage.getItem('lbUser'));
         if(status === null || status === undefined) {
           app.$router.push('/login');
-        }else if (status.data.role_id === 'ADMIN') {
-          app.$router.push('/admin');
         }else {
           app.$router.push('/user');
         }

@@ -1,10 +1,15 @@
 /home/yaroslav/Documents/3rd_year/EE/kekker/backend/src/main/java/com/kekker/app/model/User.java
+/home/yaroslav/Documents/3rd_year/EE/kekker/backend/src/main/java/com/kekker/app/web/KekRestController.java
+/home/yaroslav/Documents/3rd_year/EE/kekker/backend/src/main/java/com/kekker/app/repository/ReactionRepository.java
+/home/yaroslav/Documents/3rd_year/EE/kekker/backend/src/main/java/com/kekker/app/view/UserView.java
+/home/yaroslav/Documents/3rd_year/EE/kekker/backend/src/main/java/com/kekker/app/model/Reaction.java
 /home/yaroslav/Documents/3rd_year/EE/kekker/backend/src/main/java/com/kekker/app/model/Comment.java
+/home/yaroslav/Documents/3rd_year/EE/kekker/backend/src/main/java/com/kekker/app/view/MyKekDto.java
 /home/yaroslav/Documents/3rd_year/EE/kekker/backend/src/main/java/com/kekker/app/Application.java
 /home/yaroslav/Documents/3rd_year/EE/kekker/backend/src/main/java/com/kekker/app/repository/UserRepository.java
 /home/yaroslav/Documents/3rd_year/EE/kekker/backend/src/main/java/com/kekker/app/web/UserRestController.java
 /home/yaroslav/Documents/3rd_year/EE/kekker/backend/src/main/java/com/kekker/app/repository/KekRepository.java
-/home/yaroslav/Documents/3rd_year/EE/kekker/backend/src/main/java/com/kekker/app/repository/ReactionRepository.java
-/home/yaroslav/Documents/3rd_year/EE/kekker/backend/src/main/java/com/kekker/app/model/Reaction.java
+/home/yaroslav/Documents/3rd_year/EE/kekker/backend/src/main/java/com/kekker/app/view/CommentDto.java
+/home/yaroslav/Documents/3rd_year/EE/kekker/backend/src/main/java/com/kekker/app/view/ReactionDto.java
 /home/yaroslav/Documents/3rd_year/EE/kekker/backend/src/main/java/com/kekker/app/repository/CommentRepository.java
 /home/yaroslav/Documents/3rd_year/EE/kekker/backend/src/main/java/com/kekker/app/model/Kek.java
