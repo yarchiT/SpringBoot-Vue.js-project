@@ -7,7 +7,7 @@
         <hr>
 
         <label><b>Nickname</b></label>
-        <input type="text" placeholder="enter nickname" v-model="signUpDetails.userName" required>
+        <input type="text" placeholder="enter nickname" v-model="signUpDetails.nickName" required>
 
         <label><b>Email</b></label>
         <input type="email" placeholder="enter email" v-model="signUpDetails.email" required>
@@ -42,7 +42,7 @@
     data() {
       return {
         signUpDetails : {
-          userName : '',
+          nickName : '',
           email: '',
           firstName: '',
           lastName: '',

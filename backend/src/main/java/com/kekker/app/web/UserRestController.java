@@ -12,6 +12,7 @@ import javax.xml.ws.Response;
 import java.util.Collection;
 import java.util.List;
 
+
 @RestController
 @RequestMapping("/api")
 class UserRestController {
@@ -41,6 +42,7 @@ class UserRestController {
         return userRepository.save(user);
     }
 
+    @CrossOrigin
     @PostMapping("users/login")
     public ResponseEntity<User> login(@RequestParam("nickName") String nickName,
                                @RequestParam("password") String pass)

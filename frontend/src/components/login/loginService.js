@@ -2,25 +2,20 @@ import Vue from 'vue';
 import { APIENDPOINT , getHeader } from '../../app.config';
 import axios from 'axios';
 export default {
-  login(value, cb) {
+  login(loginDetails) {
     return new Promise(function (resolve, reject) {
-      var user={};
-      user.data = {
-        role_id: "user",
-        name: "yara",
-        nickname: "yarik"
-      };
-      user.status = "success";
-   user.token = {};
-   resolve(user);
-     /* axios.post(APIENDPOINT + '/auth/login', value)
+      var bodyFormData = new FormData();
+      bodyFormData.set('nickName', loginDetails.nickName);
+      bodyFormData.set('password', loginDetails.password);
+      console.log("loginDetails.password " +loginDetails.password);
+
+      axios.post(APIENDPOINT + '/users/login', bodyFormData)
         .then(function (res) {
-          resolve(res.data);
+          resolve(res);
         })
         .catch(function (err) {
-
-          reject("error")
-        })*/
+          reject("login error")
+        })
     });
 
   }

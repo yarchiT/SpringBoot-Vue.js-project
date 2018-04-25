@@ -83,7 +83,9 @@ const router = new VueRouter({routes,mode:'history'})
 router.beforeEach((to, from, next) => {
   if(to.meta.requiresAuth) {
     const authUser = JSON.parse(window.localStorage.getItem('lbUser'))
-    if(!authUser || !authUser.token) {
+    next();
+    //todo: when add user token should refactor this code
+/*    if(!authUser || !authUser.token) {
       next({name:'login'})
     }
     else if(to.meta.adminAuth) {
@@ -100,7 +102,7 @@ router.beforeEach((to, from, next) => {
         console.log('Im in admin');
         next('/admin')
       }
-    }
+    }*/
   }else {
     next()
   }
