@@ -82,6 +82,7 @@
             this.userDetails.bio="I'm fucking bomberman, I will get married with your handsome dog. Please fuck mexican man and follow me!"
           this.userDetails.keks = [
             {
+                id:"kek1",
               text:"I was in Boston and I forgot Lenin..Upsss!",
               date:"12/03/2019",
               owner_id:"kimasik",
@@ -91,6 +92,7 @@
               reactions:{loys:24,disloys:3},
               comments:[
                 {
+                    id:"lol",
                     owner_id:"kimano",
                     owner_avatar:"trump.jpeg",
                     owner_nickname:"i_love_ivanka",
@@ -98,15 +100,18 @@
                     date:"12/03/2001"
                 },
                 {
+                  id:"kek"  ,
                   owner_id:"kimano",
                   owner_avatar:"trump.jpeg",
                   owner_nickname:"i_love_ivanka",
                   text:"Make America great again!",
                   date:"22/03/2017"
                 }
-              ]
+              ],
+              showComments:false
             },
             {
+                id:"kek2",
               text:"Ohhh curly brackets, where is my spiner?",
               date:"15/03/2019",
               owner_id:"kimasik",
@@ -116,15 +121,18 @@
               reactions:{loys:43,disloys:13},
               comments:[
                 {
+                    id:"4ebyrek",
                   owner_id:"kimano",
                   owner_avatar:"user.jpg",
                   owner_nickname:"kimasik",
                   text:"Smoke weeds every day bro!",
                   date:"12/12/2012"
                 }
-              ]
+              ],
+              showComments:false
             },
             {
+                id:"Kek3",
               text:"'Ebat` Kapat`'-told me father and showed his dick to my sister",
               date:"05/04/2019",
               owner_id:"kimasik",
@@ -134,13 +142,15 @@
               reactions:{loys:143,disloys:43},
               comments:[
                 {
+                    id:"snoopydog",
                   owner_id:"kimano",
                   owner_avatar:"user.jpg",
                   owner_nickname:"kimasik",
                   text:"Swim!Dream!Love! And fuck bro!",
                   date:"12/12/2012"
                 }
-              ]
+              ],
+              showComments:false
             }
           ]
         },

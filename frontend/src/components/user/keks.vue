@@ -16,9 +16,9 @@
             <div class="icon_middle"><img :src="getDisLoysImg()" align="middle" class="reaction_icons"><span>{{kek.reactions.disloys}}</span></div>
           </div>
           <hr>
-          <button class="comments_btn" v-on:click="toggle">Comments</button>
+          <button class="comments_btn" v-on:click="toggle(kek)" v-bind:data-kekId="kek.id">Comments</button>
 
-          <div class="comments_area"  v-show="showComment">
+          <div class="comments_area"  v-show="kek.showComment" v-bind:data-kekId="kek.id">
             <Comments v-bind:comments="kek.comments"></Comments>
           </div>
 
@@ -33,11 +33,7 @@
   export default {
     name: 'keks', //this is the name of the component
 
-    data(){
-        return{
-            showComment:false
-        }
-    },
+
 
     props:{
         keks:{
@@ -58,13 +54,9 @@
       },
 
 
-      toggle(){
-        this.showComment = !this.showComment;
-        if(this.showComment){
-          document.getElementsByClassName("comments_btn").style.position = 'inherit';
-        }else{
-          document.getElementsByClassName("comments_btn").style.position = 'absolute';
-        }
+      toggle(kek){
+        this.$set(kek,'showComment',!kek.showComment);
+
       },
       getLoysImg(){
         return this.getImgUrl("loys.svg")
