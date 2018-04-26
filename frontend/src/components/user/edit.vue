@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <form action="/action_page.php">
+    <form onsubmit="submit()">
       <div class="row">
         <div class="col-25">
           <label for="src">Image</label>
@@ -58,7 +58,7 @@
         </div>
       </div>
       <div class="row">
-        <input type="submit" value="Edit"  v-on:click="submit">
+        <input type="submit" value="Edit">
       </div>
     </form>
   </div>
@@ -124,8 +124,6 @@
           }
         }
       },
-
-
       submit(){
 
         let formData = new FormData();

@@ -8,14 +8,13 @@ export default {
       bodyFormData.set('nickName', loginDetails.nickName);
       bodyFormData.set('password', loginDetails.password);
       console.log("loginDetails.password " +loginDetails.password);
-      resolve("xui");
-      /*axios.post(APIENDPOINT + '/users/login', bodyFormData)
+      axios.post(APIENDPOINT + '/users/login', bodyFormData)
         .then(function (res) {
           resolve(res);
         })
         .catch(function (err) {
           reject("login error")
-        })*/
+        })
     });
 
   }

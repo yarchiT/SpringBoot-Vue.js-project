@@ -69,7 +69,7 @@
         this.$router.push('/');
       },
       redirectToSignUp: function () {
-        this.$router.push('/signUp');
+        this.$router.push('/signup');
       }
     },
     created:function() {

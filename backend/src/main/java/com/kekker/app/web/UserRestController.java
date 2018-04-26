@@ -11,11 +11,12 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.Collection;
+import java.util.List;
 
 @CrossOrigin
 @RestController
 @RequestMapping("/api")
-class UserRestController {
+public class UserRestController {
 
     private final UserRepository userRepository;
     private UserService userService;
@@ -47,13 +48,11 @@ class UserRestController {
     //todo(max): use modelmapping
     @PostMapping("/signup")
     public ResponseEntity<String> signup(@Valid @RequestBody UserRegisterDto user) {
-        if (userRepository.findByNickName(user.getNickName()) != null)
-        {
+        if (userRepository.findByNickName(user.getNickName()) != null) {
             return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body("Nickname is taken");
         }
 
-        if (userRepository.findByEmail(user.getEmail()) != null)
-        {
+        if (userRepository.findByEmail(user.getEmail()) != null) {
             return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body("Email is taken");
         }
 
@@ -61,11 +60,12 @@ class UserRestController {
         registeredUser.setPassword(user.getPassword());
         registeredUser.setNickName(user.getNickName());
         registeredUser.setEmail(user.getEmail());
-        registeredUser.setAvatar(null);
+        registeredUser.setAvatarUrl(null);
         registeredUser.setFirstName(user.getFirstName());
         registeredUser.setLastName(user.getLastName());
         return ResponseEntity.ok(userService.signup(registeredUser));
 
+    }
     //Get by id
     @GetMapping("/following/{nickName}")
     public List<User> getUsersFollowings(@PathVariable("nickName") String nickName) {

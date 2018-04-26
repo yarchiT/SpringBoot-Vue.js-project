@@ -170,11 +170,4 @@ public class User implements Serializable{
         this.userFollowers = userFollowers;
     }
 
-   /* public Set<User> getFriends() {
-        return friends;
-    }
-
-    public void setFriends(Set<User> friends) {
-        this.friends = friends;
-    }*/
 }

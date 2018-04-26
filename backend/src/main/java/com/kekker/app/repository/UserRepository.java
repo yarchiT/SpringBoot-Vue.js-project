@@ -15,7 +15,7 @@ public interface UserRepository extends JpaRepository<User,Long>{
      User findByEmail(String nickName);
 
      @Transactional
-     void deleteByNickName(String nickName);}
+     void deleteByNickName(String nickName);
 
      /*List<User> findFollowersByNickName(String nickName);*/
 
