@@ -4,6 +4,14 @@
         <router-link class="logo" v-bind:key="0"
                      :to="`/`">Kekker</router-link>
 
+        <div class="wrap">
+          <div class="search">
+            <input type="text" v-model="searchInput" class="searchTerm" placeholder="What are you looking for?">
+            <button v-on:click="search" class="searchButton">
+              <span>Search</span>
+            </button>
+          </div>
+        </div>
        <!-- <a class="logo" href="/"><img src="../assets/logo.svg"/></a>-->
         <div v-if="!this.$store.state.isLoggedIn" class="home-nav link-on-right">
           <router-link class="spacing" v-for="routes in homeLinks"
@@ -22,6 +30,7 @@
 </template>
 
 <script>
+
   export default {
     name: 'Navigation', // this is the name of the component
     data() {
@@ -60,14 +69,19 @@
             page:'/edit'
           }
         ],
-        text: 'Log out'
+        text: 'Log out',
+        searchInput: ''
       }
     },
     methods: {
       logout: function () {
         this.$store.state.isLoggedIn = false;
-        window.localStorage.clear();
+          window.localStorage.clear();
         this.$router.push("/")
+      },
+      search: function() {
+        if (this.searchInput)
+          this.$router.push({path: '/search', query: {nickname: this.searchInput}});
       }
     }
   }
@@ -75,7 +89,48 @@
 
 <style>
   @import '../assets/styles/toastr.min.css';
+  @import url(https://fonts.googleapis.com/css?family=Open+Sans);
 
+  .search {
+    width: 100%;
+    position: relative
+  }
+
+  .searchTerm {
+    float: left;
+    width: 100%;
+    border: 3px solid #00B4CC;
+    padding: 5px;
+    height: 20px;
+    border-radius: 5px;
+    outline: none;
+    color: #9DBFAF;
+  }
+
+  .searchTerm:focus{
+    color: #00B4CC;
+  }
+
+  .searchButton {
+    position: absolute;
+    right: -50px;
+    width: 79px;
+    height: 36px;
+    border: 1px solid #00B4CC;
+    background: #00B4CC;
+    text-align: center;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 20px;
+  }
+
+  /*Resize the wrap to see the search bar change!*/
+  .wrap {
+    position: absolute;
+    margin-left: 90px;
+    margin-top: 7px;
+  }
   .logo{
     float: left;
   }

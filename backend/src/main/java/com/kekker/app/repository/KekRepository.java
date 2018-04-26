@@ -12,7 +12,7 @@ public interface KekRepository extends JpaRepository<Kek, Long>{
    //@Query("select new map(k.text as text, k.imageUrl as img, k.createDate as date, c as comments, r as reacts) from Kek k left join k.comments c left join k.reactions r where k.owner.nickName=?1")
     //@Query(value = "select k.text, c.owner.firstName, c.owner.nickName" +
            // "  from Kek k left join k.comments c inner join c.owner o where k.owner.nickName=?1")
-    @Query("select new com.kekker.app.view.MyKekDto(k) from Kek k where k.owner.nickName=?1")
+    @Query("select new com.kekker.app.view.KekDto(k) from Kek k where k.owner.nickName=?1")
     Collection<?> findUserKeks(String nickname);
 
   //  Collection<Kek> findUserKeks(String nickname);

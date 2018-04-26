@@ -2,15 +2,12 @@ package com.kekker.app.web;
 
 import com.kekker.app.model.Kek;
 import com.kekker.app.repository.KekRepository;
-import com.kekker.app.view.MyKekDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.EntityManager;
 import javax.validation.Valid;
 import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 
 @CrossOrigin
 @RestController

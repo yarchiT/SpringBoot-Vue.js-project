@@ -10,7 +10,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class MyKekDto implements Serializable{
+public class KekDto implements Serializable{
 
     private String text;
     private String imageUrl;
@@ -19,7 +19,7 @@ public class MyKekDto implements Serializable{
     private Set<CommentDto> commentsDto = new HashSet<CommentDto>();
 
     //sorry for this, Mr Andrii
-//    public MyKekDto(Kek kek,  Set<Comment> comments, Set<Reaction> reactions)
+//    public KekDto(Kek kek,  Set<Comment> comments, Set<Reaction> reactions)
 //    {
 //        text = kek.getText();
 //        imageUrl = kek.getImageUrl();
@@ -28,12 +28,12 @@ public class MyKekDto implements Serializable{
 //        initComments(comments);
 //    }
 
-    public MyKekDto()
+    public KekDto()
     {
 
     }
 
-    public MyKekDto(Kek k)
+    public KekDto(Kek k)
     {
         text = k.getText();
         imageUrl = k.getImageUrl();

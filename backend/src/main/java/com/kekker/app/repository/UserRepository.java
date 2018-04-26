@@ -20,5 +20,8 @@ public interface UserRepository extends JpaRepository<User,Long>{
      /*List<User> findFollowersByNickName(String nickName);*/
 
      @Query("select new com.kekker.app.view.UserView(u) from User u join u.userFollowers f where f.nickName =:nickName")
-     List<User> findFollowersByNickName(@Param("nickName")String nickName);
+     Collection<?> findFollowersByNickName(@Param("nickName")String nickName);
+
+     @Query("select new com.kekker.app.view.SearchUserDto(u) from User u where u.nickName like %?1%")
+     Collection<?> findUsersNicknameContains(String wildCard);
 }

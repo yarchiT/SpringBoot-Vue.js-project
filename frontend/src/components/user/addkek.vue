@@ -34,7 +34,7 @@
         this.newKekText = "";
         this.isAddRequestPending = true;
         //todo:post request instead of get to our server; emit event to parent and update view
-        axios.get(`http://jsonplaceholder.typicode.com/posts`)
+        axios.post(`http://jsonplaceholder.typicode.com/posts`)
           .then(response => {
             // JSON responses are automatically parsed.
             console.log('dummy request success')

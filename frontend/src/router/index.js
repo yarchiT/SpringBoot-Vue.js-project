@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '@/components/Home'
+import SearchResult from '@/components/SearchResult'
 import About from '@/components/About'
 
 import login from '../components/login/login.vue';
@@ -72,6 +73,11 @@ Vue.use(Navbar);
      name:'error',
      path:'/error',
      component:error
+   },
+   {
+     name:'search',
+     path:'/search',
+     component:SearchResult
    }
   ];
 
