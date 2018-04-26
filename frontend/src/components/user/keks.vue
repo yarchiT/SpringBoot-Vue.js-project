@@ -118,6 +118,7 @@
       },
 
       countReactions(kek,reactionType){
+        console.log("reactions: "+ JSON.stringify(kek.reactions));
         const result = kek.reactions.filter(reaction => reaction.type === reactionType).length;
         return result;
       },

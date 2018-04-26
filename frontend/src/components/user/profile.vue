@@ -59,6 +59,7 @@
 
 <script>
   import Keks from './keks.vue';
+  import userService from './userService';
   import AddKek from './addkek';
   import axios from 'axios';
 
@@ -358,7 +359,7 @@
                   owner_nickName: userData.nickName,
                   owner_avatar: userData.avatarUrl,
                   kek_image: el.imageUrl,
-                  reactions: {loys: 10, disloys: 5},
+                  reactions: userService.getReactionsOfKek(el.reactionsDto),
                   comments: userService.getCommentsOfKek(el.commentsDto),
                   showComments: false
                 });
