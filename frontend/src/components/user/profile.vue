@@ -30,7 +30,7 @@
               <p>{{userDetails.bio}}</p>
 
               <hr>
-              <button class="editProfileBtn"  v-show="true" @click="edit" >Edit</button> <!--todo:show if nickname == authorizated user-->
+              <button class="editProfileBtn"  v-show="isOwnProfile" @click="edit" >Edit</button> <!--todo:show if nickname == authorizated user-->
             </div>
           </div><br>
 
@@ -38,11 +38,14 @@
         </div>
         <!--Right column-->
         <div class="w3-twothird">
-          <div class="clearfix">
+          <div v-show="isOwnProfile" class="clearfix">
             <form>
               <textarea v-model="newKekText"></textarea>
             </form>
             <button class="post-btn add-btn" v-bind:class="{'disabled-btn': isButtonDisabled }" :disabled="isButtonDisabled" v-on:click="addKek">Add kek</button>
+          </div>
+          <div id="">
+
           </div>
 
 
@@ -78,7 +81,8 @@
                 keks:[]
             },
             isAddRequestPending: false,
-            newKekText: ""
+            newKekText: "",
+            isOwnProfile: false
         }
     },
     components:{
@@ -332,13 +336,15 @@
     },
     created() {
       var profileUsersNickName = this.$route.params.nickname;
+      var currentUser = JSON.parse(window.localStorage.getItem('lbUser'));
 
       if (profileUsersNickName == null) {
-        var currentUser = JSON.parse(window.localStorage.getItem('lbUser'));
         profileUsersNickName = currentUser.nickName;
         if (currentUser == null)
           return;
       }
+
+      this.isOwnProfile = profileUsersNickName == currentUser.nickName;
 
       var userData = {};
       var profile = this;
