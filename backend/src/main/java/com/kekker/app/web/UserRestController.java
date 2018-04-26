@@ -1,5 +1,6 @@
 package com.kekker.app.web;
 
+import com.kekker.app.exception.CustomException;
 import com.kekker.app.model.User;
 import com.kekker.app.repository.UserRepository;
 import com.kekker.app.service.UserService;
@@ -41,8 +42,14 @@ public class UserRestController {
     }
 
     @PostMapping("/signin")
-    public String signin(@RequestParam String username,@RequestParam String password) {
-        return userService.signin(username, password);
+    public ResponseEntity<String> signin(@RequestParam String nickName,@RequestParam String password) {
+        try {
+            String token = userService.signin(nickName, password);
+            return ResponseEntity.ok(token);
+        } catch (CustomException ex)
+        {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("");
+        }
     }
 
     //todo(max): use modelmapping
@@ -64,8 +71,8 @@ public class UserRestController {
         registeredUser.setFirstName(user.getFirstName());
         registeredUser.setLastName(user.getLastName());
         return ResponseEntity.ok(userService.signup(registeredUser));
-
     }
+
     //Get by id
     @GetMapping("/following/{nickName}")
     public List<User> getUsersFollowings(@PathVariable("nickName") String nickName) {

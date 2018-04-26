@@ -37,16 +37,16 @@ public class User implements Serializable{
     @Null
     private String avatarUrl;
 
-    @NotNull
+    @Null
     @Size(max = 120)
     private String bio;
 
-    @NotNull
+    @Null
     @Size(max = 15)
     @Column
     private String gender;
 
-    @NotNull
+    @Null
     @JsonIgnore
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Kek> keks;   // array of all written keks by user
