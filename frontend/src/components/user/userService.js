@@ -30,7 +30,6 @@ export default {
   },
   getCommentsOfKek(dbComments){
     var comments =[];
-    console.log("dbComments: " + dbComments);
     if(dbComments != null){
     dbComments.forEach(function (el) {
        comments.push({
@@ -43,6 +42,19 @@ export default {
     });
     }
     return comments;
+  },
+  getReactionsOfKek(dbReactions){
+    var reactions =[];
+    if(dbReactions != null){
+      dbReactions.forEach(function (el) {
+        reactions.push({
+          type: el.type,
+          owner_avatar: el.owner.avatarUrl,
+          owner_nickname: el.owner.nickName,
+        });
+      });
+    }
+    return reactions;
   }
 
 }

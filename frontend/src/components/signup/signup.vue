@@ -69,7 +69,7 @@
           .then(response=>{
             authUser.nickName = app.signUpDetails.nickName;
             authUser.token = response.data;
-            window.localStorage.setItem('lbUser',JSON.stringify(response.data));
+            window.localStorage.setItem('lbUser',JSON.stringify(authUser));
             app.$router.push('/profile');
           })
           .catch(err=>{
