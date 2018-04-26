@@ -25,9 +25,8 @@ public class Kek implements Serializable{
     @Size(max = 200)
     private String text;
 
-    @Lob
     @Null
-    private byte[] image;
+    private String imageUrl;
 
     @NotNull
     @Temporal(TemporalType.DATE)
@@ -63,13 +62,6 @@ public class Kek implements Serializable{
         this.text = text;
     }
 
-    public byte[] getImage() {
-        return image;
-    }
-
-    public void setImage(byte[] image) {
-        this.image = image;
-    }
 
     public Date getCreateDate() {
         return createDate;
@@ -101,5 +93,13 @@ public class Kek implements Serializable{
 
     public void setReactions(Set<Reaction> reactions) {
         this.reactions = reactions;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }

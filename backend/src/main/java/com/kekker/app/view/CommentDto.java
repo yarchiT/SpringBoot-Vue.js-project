@@ -15,7 +15,7 @@ public class CommentDto implements Serializable{
     {
         this.text = text;
         this.creationDate = creationDate;
-        this.owner = new UserView(owner.getNickName(), owner.getAvatar());
+        this.owner = new UserView(owner.getNickName(), owner.getAvatarUrl());
     }
 
     public CommentDto()

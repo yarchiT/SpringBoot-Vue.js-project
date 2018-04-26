@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>Error</h1>
-<p>HEre should fucking amazing view with clouds and stuff</p>
+<p>HEre should be fucking amazing view with clouds and stuff</p>
   </div>
 </template>
 

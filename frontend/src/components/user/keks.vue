@@ -2,7 +2,7 @@
   <div>
     <div class="kek" v-for="kek in keks" v-bind:data-owner="kek.owner_id">
       <div class="w3-container w3-card w3-white" >
-        <img :src="getImgUrl(kek.owner_avatar)" class="kek_owner_avatar">
+        <img :src="kek.owner_avatar" class="kek_owner_avatar">
         <h2 class="w3-text-grey w3-padding-16 kek_owner_nickname">{{kek.owner_nickName}}</h2>
         <input type="image" :src="getImgUrl('delete-button.svg')" class="remove_kek_btn"/>
         <hr>
@@ -53,11 +53,9 @@
     methods:{
 
       getImgUrl(pet) {
-        var images = require.context('../../assets/')
+        var images = require.context('../../assets/');
         return images('./' + pet )
       },
-
-
       toggle(){
         this.showComment = !this.showComment;
         if(this.showComment){

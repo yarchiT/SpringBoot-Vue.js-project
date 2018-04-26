@@ -65,6 +65,11 @@ class UserRestController {
         registeredUser.setFirstName(user.getFirstName());
         registeredUser.setLastName(user.getLastName());
         return ResponseEntity.ok(userService.signup(registeredUser));
+
+    //Get by id
+    @GetMapping("/following/{nickName}")
+    public List<User> getUsersFollowings(@PathVariable("nickName") String nickName) {
+        return userRepository.findFollowersByNickName(nickName);
     }
 
     //Create new

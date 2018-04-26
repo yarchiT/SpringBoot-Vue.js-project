@@ -13,7 +13,7 @@ import java.util.Set;
 public class MyKekDto implements Serializable{
 
     private String text;
-    private byte[] image;
+    private String imageUrl;
     private Date createDate;
     private Set<ReactionDto> reactionsDto = new HashSet<ReactionDto>();
     private Set<CommentDto> commentsDto = new HashSet<CommentDto>();
@@ -22,7 +22,7 @@ public class MyKekDto implements Serializable{
     public MyKekDto(Kek kek,  Set<Comment> comments, Set<Reaction> reactions)
     {
         text = kek.getText();
-        image = kek.getImage();
+        imageUrl = kek.getImageUrl();
         createDate = kek.getCreateDate();
         initReations(reactions);
         initComments(comments);
@@ -60,12 +60,12 @@ public class MyKekDto implements Serializable{
         this.text = text;
     }
 
-    public byte[] getImage() {
-        return image;
+    public String getImageUrl() {
+        return imageUrl;
     }
 
-    public void setImage(byte[] image) {
-        this.image = image;
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public Date getCreateDate() {

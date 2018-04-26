@@ -4,12 +4,12 @@ import java.io.Serializable;
 
 public class UserView implements Serializable{
 
-    private byte[] avatar;
+    private String avatarUrl;
     private String nickName;
 
-    public UserView(String nickName, byte[] avatar)
+    public UserView(String nickName, String avatarUrl)
     {
-        this.avatar = avatar;
+        this.avatarUrl = avatarUrl;
         this.nickName = nickName;
     }
 
@@ -18,12 +18,12 @@ public class UserView implements Serializable{
 
     }
 
-    public byte[] getAvatar() {
-        return avatar;
+    public String getAvatarUrl() {
+        return avatarUrl;
     }
 
-    public void setAvatar(byte[] avatar) {
-        this.avatar = avatar;
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl;
     }
 
     public String getNickName() {

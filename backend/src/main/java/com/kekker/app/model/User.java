@@ -18,6 +18,7 @@ public class User implements Serializable{
     private String nickName; // user's id -> must me unique
 
     @NotNull
+
     @Size(max=100)
     private String email; // also unique
 
@@ -34,8 +35,7 @@ public class User implements Serializable{
     private String lastName;
 
     @Null
-    @Lob
-    private byte[] avatar;
+    private String avatarUrl;
 
     @NotNull
     @Size(max = 120)
@@ -59,7 +59,20 @@ public class User implements Serializable{
     @Null
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore
-    private Set<Reaction> reactions;   // array of all written comments by user
+    private Set<Reaction> reactions;   // array of all reactions set by user
+
+    // following_nickName - user you are following
+    // user_nickName - you
+    @Null
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "userFollowers", joinColumns = {
+            @JoinColumn(name = "following_nickName", nullable = false)}, inverseJoinColumns = {
+            @JoinColumn(name = "user_nickName", nullable = false)})
+    @JsonIgnore
+    private Set<User> userFollowers;   // array of all written comments by user
+
+   /* @ManyToMany(mappedBy = "userFollowers", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<User> friends;*/
 
     public String getNickName() {
         return nickName;
@@ -101,12 +114,12 @@ public class User implements Serializable{
         this.lastName = lastName;
     }
 
-    public byte[] getAvatar() {
-        return avatar;
+    public String getAvatarUrl() {
+        return avatarUrl;
     }
 
-    public void setAvatar(byte[] avatar) {
-        this.avatar = avatar;
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl;
     }
 
     public String getBio() {
@@ -140,4 +153,28 @@ public class User implements Serializable{
     public void setComments(Set<Comment> comments) {
         this.comments = comments;
     }
+
+    public Set<Reaction> getReactions() {
+        return reactions;
+    }
+
+    public void setReactions(Set<Reaction> reactions) {
+        this.reactions = reactions;
+    }
+
+    public Set<User> getUserFollowers() {
+        return userFollowers;
+    }
+
+    public void setUserFollowers(Set<User> userFollowers) {
+        this.userFollowers = userFollowers;
+    }
+
+   /* public Set<User> getFriends() {
+        return friends;
+    }
+
+    public void setFriends(Set<User> friends) {
+        this.friends = friends;
+    }*/
 }

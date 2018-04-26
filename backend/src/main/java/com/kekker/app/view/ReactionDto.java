@@ -11,7 +11,7 @@ public class ReactionDto implements Serializable{
     public ReactionDto(String type, User owner)
     {
         this.type = type;
-        this.owner = new UserView(owner.getNickName(), owner.getAvatar());
+        this.owner = new UserView(owner.getNickName(), owner.getAvatarUrl());
     }
 
     public ReactionDto()
