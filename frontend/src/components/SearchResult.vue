@@ -33,6 +33,11 @@
             return this.foundUsers.length ===0;
           }
     },
+    watch: {
+      '$route.query.nickname'() {
+        console.log('OOH YOU TOUCH MY TRALALA' + this.$route.query.nickname)
+      }
+    },
     route: {
       canReuse: false,
     },

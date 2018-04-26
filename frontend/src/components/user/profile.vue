@@ -329,14 +329,13 @@
       },
 
     },
-    },
     created() {
       var profileUsersNickName = this.$route.params.nickname;
 
-      if(profileUsersNickName == null){
+      if (profileUsersNickName == null) {
         var currentUser = JSON.parse(window.localStorage.getItem('lbUser'));
         profileUsersNickName = currentUser.nickName;
-        if(currentUser == null)
+        if (currentUser == null)
           return;
       }
 
@@ -344,7 +343,7 @@
       var profile = this;
       userService.getUserInfo(profileUsersNickName)
         .then(function (res) {
-          console.log("resData: " + JSON.stringify( res.data));
+          console.log("resData: " + JSON.stringify(res.data));
           userData = res.data;
 
           profile.fillUserProfileInfo(userData);
@@ -359,7 +358,7 @@
                   owner_nickName: userData.nickName,
                   owner_avatar: userData.avatarUrl,
                   kek_image: el.imageUrl,
-                  reactions:{ loys: 10, disloys: 5},
+                  reactions: {loys: 10, disloys: 5},
                   comments: userService.getCommentsOfKek(el.commentsDto),
                   showComments: false
                 });
@@ -373,7 +372,8 @@
         .catch(function (err) {
           console.log(err);
         });
- 		} 
+
+    }
   }
 </script>
 <style>
