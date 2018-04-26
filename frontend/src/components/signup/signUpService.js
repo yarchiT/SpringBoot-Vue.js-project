@@ -8,7 +8,7 @@ export default {
       user.data = {
         role_id: "user",
         name: "yara",
-        nickname: "yarik"
+        nickName: "yarik"
       };
       user.status = "success";
       user.token = {};

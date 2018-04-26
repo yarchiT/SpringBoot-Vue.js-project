@@ -45,14 +45,11 @@
         var app = this;
         loginService.login(this.loginDetails)
           .then(function(res) {
-              console.log("logged in");
-              console.log("res.data " + res.data);
-              console.log("res.token " + res.token);
+              console.log("res.data " + res.data.nickName);
               authUser.data = res.data;
             //  authUser.token = res.token;
               app.$store.state.isLoggedIn = true;
               window.localStorage.setItem('lbUser',JSON.stringify(authUser));
-              console.log("before push");
               app.$router.push('/profile');
           })
           .catch(function (err){
@@ -65,7 +62,7 @@
         if(status === null || status === undefined) {
           app.$router.push('/login');
         }else {
-          app.$router.push('/user');
+          app.$router.push('/profile');
         }
       },
       cancelLogin: function () {

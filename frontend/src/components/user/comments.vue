@@ -3,7 +3,7 @@
     <ul>
       <li v-for="comment in comments" transition="slide" v-bind:data-owner="comment.owner_id">
         <div class="profile">
-          <img :src="getImgUrl(comment.owner_avatar)" alt="">
+          <img :src="comment.owner_avatar" alt="">
         </div>
         <div class="msg"><div class="msg-body">
           <p class="name">{{comment.owner_nickname }}<span class="date">{{comment.date}}</span></p>
@@ -18,8 +18,6 @@
 <script>
   export default{
       name:'comments',
-
-
       props:{
           comments:{
               type:Array,

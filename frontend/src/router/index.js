@@ -6,104 +6,98 @@ import About from '@/components/About'
 import login from '../components/login/login.vue';
 import signUp from '../components/signup/signup.vue';
 import admin from '../components/admin/admin.vue';
-import user from '../components/user/user.vue';
-import userTimeline from '../components/user/timeline.vue'
-import userProfile from '../components/user/profile.vue'
+import userTimeline from '../components/user/timeline.vue';
+import userProfile from '../components/user/profile.vue';
 
 
-import error from '../components/user/user.vue';
+import error from '../components/error.vue';
 
-import { Navbar } from 'bootstrap-vue/es/components';
+import {Navbar} from 'bootstrap-vue/es/components';
 
 Vue.use(VueRouter);
 Vue.use(Navbar);
 
 
- const routes = [
-    {
-      path: '/',
-      name: 'home',
-      component: Home
-    },
-    {
-     path: '/home',
-     name: 'home',
-     component: Home
-    },
-    {
-      name:'login',
-      path:'/login',
-      component:login
-    },
-    {
-      name:'signUp',
-      path:'/signUp',
-      component:signUp
-    },
-    {
-      path: '/about',
-      name: 'about',
-      component: About
-    },
-    {
-      name:'admin',
-      path:'/admin',
-      component:admin,
-      meta: { requiresAuth: true , adminAuth:true, userAuth : false}
-    },
-    {
-      name:'user',
-      path:'/user',
-      component:user,
-      meta: { requiresAuth: true , adminAuth:false, userAuth:true},
-      children: [
-        {
-          // UserProfile will be rendered inside User's <router-view>
-          // when /user/:id/profile is matched
-          path: '/profile',
-          component: userProfile
-        },
-        {
-          // UserTimeline will be rendered inside User's <router-view>
-          // when /user/:id/timeline is matched
-          path: '/timeline',
-          component: userTimeline
-        }
-      ]
-    },
-   {
-     name:'error',
-     path:'/error',
-     component:error
-   }
-  ];
+const routes = [
+  {
+    path: '/',
+    name: 'home',
+    component: Home
+  },
+  {
+    path: '/home',
+    name: 'home',
+    component: Home
+  },
+  {
+    name: 'login',
+    path: '/login',
+    component: login
+  },
+  {
+    name: 'signUp',
+    path: '/signUp',
+    component: signUp
+  },
+  {
+    path: '/about',
+    name: 'about',
+    component: About
+  },
+  {
+    name: 'admin',
+    path: '/admin',
+    component: admin,
+    meta: {requiresAuth: true, adminAuth: true, userAuth: false}
+  },
 
-const router = new VueRouter({routes,mode:'history'})
+  {
+    name: 'userProfile',
+    path: '/profile',
+    component: userProfile,
+    meta: {requiresAuth: true, adminAuth: false, userAuth: true}
+  },
+  {
+
+    name: 'userTimeline',
+    path: '/timeline',
+    component: userTimeline,
+    meta: {requiresAuth: true, adminAuth: false, userAuth: true},
+  },
+  {
+    name: 'error',
+    path: '/error',
+    component: error
+  }
+];
+
+const router = new VueRouter({routes, mode: 'history'})
 
 router.beforeEach((to, from, next) => {
-  if(to.meta.requiresAuth) {
+  if (to.meta.requiresAuth) {
     const authUser = JSON.parse(window.localStorage.getItem('lbUser'))
     next();
     //todo: when add user token should refactor this code
-/*    if(!authUser || !authUser.token) {
-      next({name:'login'})
-    }
-    else if(to.meta.adminAuth) {
-      if(authUser.data.role_id === 'admin') {
-        next()
-      }else {
-        next('/user')
-      }
-    } else if(to.meta.userAuth) {
-      if(authUser.data.role_id === 'user') {
-        console.log('Im in user');
-        next()
-      }else {
-        console.log('Im in admin');
-        next('/admin')
-      }
-    }*/
-  }else {
+        /*if(!authUser || !authUser.token) {
+          next({name:'login'})
+        }
+
+        else if(to.meta.adminAuth) {
+          if(authUser.data.role_id === 'admin') {
+            next()
+          }else {
+            next('/user')
+          }
+        } else if(to.meta.userAuth) {
+          if(authUser.data.role_id === 'user') {
+            console.log('Im in user');
+            next()
+          }else {
+            console.log('Im in admin');
+            next('/admin')
+          }
+        }*/
+  } else {
     next()
   }
 });

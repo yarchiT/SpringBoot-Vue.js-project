@@ -15,9 +15,9 @@
 
           <div class="w3-white w3-text-grey w3-card-4">
             <div class="w3-display-container">
-              <img :src="getImgUrl(userDetails.avatar)" style="width:100%" alt="Avatar">
+              <img :src="userDetails.avatarUrl" style="width:100%" alt="Avatar">
               <div class="w3-display-bottomleft w3-container w3-text-black">
-                <h2>{{userDetails.nickname}}</h2>
+                <h2>{{userDetails.nickName}}</h2>
               </div>
             </div>
             <div class="w3-container">
@@ -51,19 +51,21 @@
   import Keks from './keks.vue';
   import AddKek from './addkek';
 
+  import userService from './userService'
+
   export default {
     name: 'profile', //this is the name of the component
     data(){
         return{
             userDetails:{
-                nickname:'',
+                nickName:'',
                 firtstName: '',
                 lastName:'',
                 email:'',
-                avatar:'',
+                avatarUrl:'',
                 gender:'',
                 bio:'',
-                keks:''
+                keks:[]
             }
         }
     },
@@ -72,80 +74,46 @@
         'AddKek': AddKek
     },
     methods:{
-        fillInfo: function () {
-            this.userDetails.nickname="kimasik",
-            this.userDetails.firtstName="kim",
-            this.userDetails.lastName="chin-in",
-            this.userDetails.gender="male",
-            this.userDetails.email="kim4in@rambler.com",
-            this.userDetails.avatar="user.jpg",
-            this.userDetails.bio="I'm fucking bomberman, I will get married with your handsome dog. Please fuck mexican man and follow me!"
-          this.userDetails.keks = [
-            {
-              text:"I was in Boston and I forgot Lenin..Upsss!",
-              date:"12/03/2019",
-              owner_id:"kimasik",
-              owner_nickName:"kimasik",
-              owner_avatar:"user.jpg",
-              kek_image:"../../assets/kekPhoto.jpg",
-              reactions:{loys:24,disloys:3},
-              comments:[
-                {
-                    owner_id:"kimano",
-                    owner_avatar:"trump.jpeg",
-                    owner_nickname:"i_love_ivanka",
-                    text:"Wow..get mann bro",
-                    date:"12/03/2001"
-                },
-                {
-                  owner_id:"kimano",
-                  owner_avatar:"trump.jpeg",
-                  owner_nickname:"i_love_ivanka",
-                  text:"Make America great again!",
-                  date:"22/03/2017"
-                }
-              ]
-            },
-            {
-              text:"Ohhh curly brackets, where is my spiner?",
-              date:"15/03/2019",
-              owner_id:"kimasik",
-              owner_nickName:"kimasik",
-              owner_avatar:"user.jpg",
-              kek_image:"../../assets/kekPhoto.jpg",
-              reactions:{loys:43,disloys:13},
-              comments:[
-                {
-                  owner_id:"kimano",
-                  owner_avatar:"user.jpg",
-                  owner_nickname:"kimasik",
-                  text:"Smoke weeds every day bro!",
-                  date:"12/12/2012"
-                }
-              ]
-            },
-            {
-              text:"'Ebat` Kapat`'-told me father and showed his dick to my sister",
-              date:"05/04/2019",
-              owner_id:"kimasik",
-              owner_nickName:"kimasik",
-              owner_avatar:"user.jpg",
-              kek_image:"../../assets/kekPhoto.jpg",
-              reactions:{loys:143,disloys:43},
-              comments:[
-                {
-                  owner_id:"kimano",
-                  owner_avatar:"user.jpg",
-                  owner_nickname:"kimasik",
-                  text:"Swim!Dream!Love! And fuck bro!",
-                  date:"12/12/2012"
-                }
-              ]
-            }
-          ]
+        fillUserProfileInfo: function (userData) {
+            this.userDetails.nickName = userData.nickName,
+            this.userDetails.firtstName = userData.firstName,
+            this.userDetails.lastName = userData.lastName,
+            this.userDetails.gender = userData.gender,
+            this.userDetails.email = userData.email,
+            this.userDetails.avatarUrl = "http://localhost:8181/static/img/user.la5dfca.jpg",
+            this.userDetails.bio = userData.bio
         },
+      fillUserKeks: function (keks) {
+        this.userDetails.keks = [
+          {
+            text:"I was in Boston and I forgot Lenin..Upsss!",
+            date:"12/03/2019",
+            owner_id:"kimasik",
+            owner_nickName:"kimasik",
+            owner_avatar:"user.jpg",
+            kek_image:"../../assets/kekPhoto.jpg",
+            reactions:{loys:24,disloys:3},
+            comments:[
+              {
+                owner_id:"kimano",
+                owner_avatar:"trump.jpeg",
+                owner_nickname:"i_love_ivanka",
+                text:"Wow..get mann bro",
+                date:"12/03/2001"
+              },
+              {
+                owner_id:"kimano",
+                owner_avatar:"trump.jpeg",
+                owner_nickname:"i_love_ivanka",
+                text:"Make America great again!",
+                date:"22/03/2017"
+              }
+            ]
+          }
+        ]
+      },
       getImgUrl(pet) {
-        var images = require.context('../../assets/')
+        var images = require.context('../../assets/');
         return images('./' + pet )
       },
 
@@ -161,7 +129,34 @@
         }
     },
     created() {
-      this.fillInfo();
+      var currentUser = JSON.parse(window.localStorage.getItem('lbUser'));
+      console.log(currentUser.data);
+      this.fillUserProfileInfo(currentUser.data);
+      var profile = this;
+
+      userService.getKeks(currentUser.data.nickName)
+        .then(function (res) {
+          console.log("get keks");
+
+
+          res.data.forEach(function (el) {
+            profile.userDetails.keks.push({
+              text: el.text,
+              date: el.date,
+              owner_id: el.nickName,
+              owner_nickName: el.nickName,
+              owner_avatar: currentUser.data.avatarUrl,
+              kek_image: el.img,
+              reactions:{ loys: 10, disloys: 5},
+              comments: []
+              // comments: userService.getCommentsOfKek(el.comments)
+            });
+          });
+          console.log(res.data);
+        })
+        .catch(function (err) {
+          console.log(err);
+        })
     }
   }
 </script>
