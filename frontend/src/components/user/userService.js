@@ -3,6 +3,19 @@ import { APIENDPOINT , getHeader } from '../../app.config';
 import axios from 'axios';
 export default {
 
+  getUserInfo(nickName) {
+    return new Promise(function (resolve, reject) {
+      axios.get(APIENDPOINT + '/users/'+nickName)
+        .then(function (res) {
+          resolve(res);
+        })
+        .catch(function (err) {
+          reject("get User info error")
+        })
+    });
+
+  },
+
   getKeks(nickName) {
     return new Promise(function (resolve, reject) {
       axios.get(APIENDPOINT + '/users/'+nickName+"/keks")

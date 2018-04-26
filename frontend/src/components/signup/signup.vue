@@ -5,6 +5,7 @@
         <h1>Sign Up</h1>
         <p>Please fill in this form to create an account.</p>
         <hr>
+        <p class="errorText">{{errorMsg}}</p>
 
         <label><b>Nickname</b></label>
         <input type="text" placeholder="enter nickname" v-model="signUpDetails.nickName" required>
@@ -27,14 +28,16 @@
         <div class="clearfix">
           <button type="submit" class="signUpBtn">Sign Up</button>
         </div>
-        <button type="button" class="redirectToLogin" v-on:click="redirectToLogin()">Login</button>
-      </div>
+        </div>
     </form>
+    <div>
+      <p>Already have account?</p>
+      <button type="button" class="redirectToLogin" v-on:click="redirectToLogin()">Login</button>
+    </div>
   </div>
 </template>
 
 <script>
-  import signUpService from './signUpService.js';
   import axios from 'axios';
   import {APIENDPOINT} from "../../app.config";
 
@@ -55,47 +58,45 @@
     },
     methods: {
       signUpUser:function() {
-        console.log('signing...');
+        if(!this.validatePasswords())
+          return;
+
         const authUser = {};
         var app = this;
         const newUser = this.makeRequestBody();
 
-        axios.post(APIENDPOINT + '/signup', newUser).then(response=>{
-          console.log('success : ' + response.data)
-          window.localStorage.setItem('token',JSON.stringify(response.data));
-          app.$router.push('/user');
-        }).catch(e=>{
-          console.log('error ' + e)
-        });
-return;
-        signUpService.login(this.loginDetails)
-          .then(function(res) {
-            if(res.status === "success") {
-              console.log("signed up");
-              authUser.data = res.data;
-              authUser.token = res.token;
-              app.$store.state.isLoggedIn = true;
-              window.localStorage.setItem('lbUser',JSON.stringify(authUser));
-            }else {
-              app.$store.state.isLoggedIn = false;
+        axios.post(APIENDPOINT + '/signup', newUser)
+          .then(response=>{
+            authUser.nickName = app.signUpDetails.nickName;
+            authUser.token = response.data;
+            window.localStorage.setItem('lbUser',JSON.stringify(response.data));
+            app.$router.push('/profile');
+          })
+          .catch(err=>{
+            if(err.response) {
+              if(err.response.status == 422)
+                 app.errorMsg = "Email or nickname already taken";
             }
-          })
-          .catch(function (err){
-            this.errorMsg = "sdf";
-            console.log(err + "blabla");
-          })
+           });
       },
       signUpAuth:function () {
         var app = this;
-        const status =  JSON.parse(window.localStorage.getItem('lbUser'));
-        if(status === null || status === undefined) {
-          app.$router.push('/signUp');
+        const alreadySignedUp =  app.$store.state.isLoggedIn;
+        if(!alreadySignedUp) {
+          app.$router.push('/signup');
         }
-        else if (status.data.role_id === 'ADMIN') {
-          app.$router.push('/admin');
-        }else {
-          app.$router.push('/user');
+        else {
+          app.$router.push('/profile');
         }
+      },
+      validatePasswords: function () {
+          if(this.signUpDetails.password != this.signUpDetails.repeatPassword){
+            this.errorMsg = "Passwords do not match!";
+            this.signUpDetails.password = '';
+            this.signUpDetails.repeatPassword = '';
+            return false;
+          }
+          return true;
       },
       makeRequestBody: function()
       {
@@ -118,6 +119,11 @@ return;
 </script>
 
 <style>
+
+  .errorText{
+    color: red;
+  }
+
   .signUpModal {
     padding: 0rem 15rem;
   }

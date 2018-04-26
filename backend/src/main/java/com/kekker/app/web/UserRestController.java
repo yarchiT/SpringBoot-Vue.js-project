@@ -46,7 +46,7 @@ public class UserRestController {
         return userRepository.findByNickName(nickName);
     }
 
-    @PostMapping("/signin")
+    @PostMapping("/login")
     public ResponseEntity<String> signin(@RequestParam String nickName,@RequestParam String password) {
         try {
             String token = userService.signin(nickName, password);
@@ -95,25 +95,6 @@ public class UserRestController {
     @PostMapping("/users")
     public User createUser(@Valid @RequestBody User user) {
         return userRepository.save(user);
-    }
-
-    @PostMapping("/users/login")
-    public ResponseEntity<User> login(@RequestParam("nickName") String nickName,
-                               @RequestParam("password") String pass)
-    {
-        if ("".equals(nickName) || "".equals(pass))
-        {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
-        }
-
-        User user = getUserByNickName(nickName);
-
-        if (user != null && user.getPassword().equals(pass))
-        {
-            return ResponseEntity.status(HttpStatus.OK).body(user);
-        }
-
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
     }
 
     //Update
