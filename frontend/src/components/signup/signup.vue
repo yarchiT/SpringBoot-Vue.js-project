@@ -69,6 +69,7 @@
           .then(response=>{
             authUser.nickName = app.signUpDetails.nickName;
             authUser.token = response.data;
+            app.$store.state.isLoggedIn = true;
             window.localStorage.setItem('lbUser',JSON.stringify(authUser));
             app.$router.push('/profile');
           })
