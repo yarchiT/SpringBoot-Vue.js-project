@@ -4,7 +4,7 @@
       <div class="w3-container w3-card w3-white" >
         <img :src="kek.owner_avatar" class="kek_owner_avatar">
         <h2 class="w3-text-grey w3-padding-16 kek_owner_nickname">{{kek.owner_nickName}}</h2>
-        <input type="image" :src="getImgUrl('delete-button.svg')" class="remove_kek_btn"/>
+        <input v-if="!isTimeline" type="image" :src="getImgUrl('delete-button.svg')" class="remove_kek_btn" @click="deleteKek(kek)"/>
         <hr>
         <div class="w3-container">
           <h5 class="w3-opacity">{{kek.kek_image}}</h5>
@@ -17,10 +17,10 @@
               <section id="feedback">
                 <div class="row centered">
                   <div class="col-xs-6" id="like">
-                    <a href="#" style="color: dodgerblue">{{kek.reactions.loys}} Loys</a>
+                    <a href="#" style="color: dodgerblue">{{countReactions(kek,"loys")}} Loys</a>
                   </div>
                   <div class="col-xs-6" id="dislike">
-                    <a href="#" style="color: dodgerblue">{{kek.reactions.disloys}} Disloys</a>
+                    <a href="#" style="color: dodgerblue">{{countReactions(kek,"disloys")}} Disloys</a>
                   </div>
                 </div>
               </section>
@@ -29,9 +29,11 @@
           <br>
           <button class="comments_btn" v-on:click="toggle(kek)" v-bind:data-kekId="kek.id">Comments</button>
         </div>
+        <transition name="slide-fade">
         <div class="comments_area"  v-show="kek.showComment" v-bind:data-kekId="kek.id" v-bind:class="{ borderForComments : kek.showComment }">
           <Comments v-bind:comments="kek.comments"></Comments>
         </div>
+        </transition>
       </div>
     </div>
   </div>
@@ -42,12 +44,28 @@
   export default {
     name: 'keks', //this is the name of the component
 
+    data () {
+      return {
+        loys: 0,
+        disloys: 0
+      }
+    },
 
+    computed: {
+      isDisabled() {
+        // evaluate whatever you need to determine disabled here...
+        return this.form.validated;
+      }
+    },
 
     props:{
         keks:{
             type: Array,
             required: true
+        },
+        isTimeline:{
+          type:Boolean,
+          required:false
         }
     },
 
@@ -74,6 +92,36 @@
       getUserKeks: function () {
 
       },
+
+      deleteKek(kek){
+        console.log("delete comment");
+        let removeIndex = this.keks.map(function(item) { return item.id; }).indexOf(kek.id);
+        this.keks.splice(removeIndex, 1);
+        let isDeleted = true;
+        // let isDeleted = false;
+        //
+        // axios.post('/api/deleteKek',{
+        //   params:{
+        //     kekId:kek.id
+        //   }
+        //
+        // }).then(response => isDeleted = response.data)
+        //   .catch(function (error) {
+        //     console.log(error);
+        //   });
+        //
+        if(isDeleted){
+          alert("Deleted successfully!")
+        }
+
+
+      },
+
+      countReactions(kek,reactionType){
+        const result = kek.reactions.filter(reaction => reaction.type === reactionType).length;
+        return result;
+      },
+
       created() {
 
           /*do smth on load*/
@@ -178,4 +226,16 @@
     width: 200px;
   }
 
+
+  .slide-fade-enter-active {
+    transition: all .3s ease;
+  }
+  .slide-fade-leave-active {
+    transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+  }
+  .slide-fade-enter, .slide-fade-leave-to
+  {
+    transform: translateX(10px);
+    opacity: 0;
+  }
 </style>
