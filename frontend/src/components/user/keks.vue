@@ -28,13 +28,10 @@
             </div>
           <br>
           <button class="comments_btn" v-on:click="toggle(kek)" v-bind:data-kekId="kek.id">Comments</button>
-
-
-
         </div>
-      </div>
-      <div class="comments_area"  v-show="kek.showComment" v-bind:data-kekId="kek.id" v-bind:class="{ borderForComments : kek.showComment }">
-        <Comments v-bind:comments="kek.comments"></Comments>
+        <div class="comments_area"  v-show="kek.showComment" v-bind:data-kekId="kek.id" v-bind:class="{ borderForComments : kek.showComment }">
+          <Comments v-bind:comments="kek.comments"></Comments>
+        </div>
       </div>
     </div>
   </div>
@@ -152,6 +149,7 @@
 
   .comments_area{
     margin-top: 4%;
+    margin-bottom: 4%;
     bottom: 3%;
     border-color: dodgerblue;
   }

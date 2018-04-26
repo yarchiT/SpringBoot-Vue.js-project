@@ -7,9 +7,9 @@ import login from '../components/login/login.vue';
 import signUp from '../components/signup/signup.vue';
 import admin from '../components/admin/admin.vue';
 import user from '../components/user/user.vue';
-import userTimeline from '../components/user/timeline.vue'
-import userProfile from '../components/user/profile.vue'
-
+import userTimeline from '../components/user/timeline.vue';
+import userProfile from '../components/user/profile.vue';
+import edit from '../components/user/edit';
 
 import error from '../components/user/user.vue';
 
@@ -68,6 +68,10 @@ Vue.use(Navbar);
           // when /user/:id/timeline is matched
           path: '/timeline',
           component: userTimeline
+        },
+        {
+          path: '/edit',
+          component: edit
         }
       ]
     },

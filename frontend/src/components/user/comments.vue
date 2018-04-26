@@ -16,7 +16,7 @@
       </li>
     </ul>-->
 
-    <div class="row" v-for="comment in comments" transition="slide" v-bind:data-owner="comment.owner_id">
+    <div class="row row-comment" v-for="comment in comments" transition="slide" v-bind:data-owner="comment.owner_id">
       <div class="col-sm-1">
         <div class="thumbnail">
           <img class="img-responsive user-photo" :src="getImgUrl(comment.owner_avatar)">
@@ -29,7 +29,7 @@
             <strong>{{comment.owner_nickname }}</strong> <span class="text-muted">{{comment.date}}</span>
           </div>
           <div class="panel-body">
-            {{comment.text}}}
+            {{comment.text}}
           </div><!-- /panel-body -->
         </div><!-- /panel panel-default -->
       </div><!-- /col-sm-5 -->
@@ -73,7 +73,8 @@
   .comment-list{
     overflow: auto;
     width: 90%;
-    height: 100px;
+    height: 150px;
+    overflow-x: hidden;
   }
 
   @media (max-width: 600px) {
@@ -158,5 +159,9 @@
     border-width:8px;
   }
 
+
+  .row-comment{
+    width: 200%;
+  }
 
 </style>
