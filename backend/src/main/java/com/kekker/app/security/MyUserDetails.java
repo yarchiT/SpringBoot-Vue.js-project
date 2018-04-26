@@ -8,6 +8,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+
 @Service
 public class MyUserDetails implements UserDetailsService {
 
@@ -26,7 +28,8 @@ public class MyUserDetails implements UserDetailsService {
                 .withUsername(username)//
                 .password(user.getPassword())
                 .accountExpired(false)//
-                .accountLocked(false)//
+                .accountLocked(false)
+                .authorities(new ArrayList<>())//
                 .credentialsExpired(false)//
                 .disabled(false)//
                 .build();

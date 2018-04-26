@@ -1,6 +1,6 @@
 <template>
   <div class="signUpModal">
-    <form v-on:submit.prevent="signUpUser()" style="border:1px solid #ccc">
+    <form v-on:submit.prevent="signUpUser" style="border:1px solid #ccc">
       <div class="container">
         <h1>Sign Up</h1>
         <p>Please fill in this form to create an account.</p>
@@ -19,13 +19,12 @@
         <input type="text" placeholder="enter LastName" v-model="signUpDetails.lastName" required>
 
         <label><b>Password</b></label>
-        <input type="password" placeholder="enter password" name="psw-repeat" v-model="signUpDetails.repeatPassword" required>
+        <input type="password" placeholder="enter password" name="psw-repeat" v-model="signUpDetails.password" required>
 
         <label><b>Repeat Password</b></label>
         <input type="password" placeholder="Repeat password" name="psw-repeat" v-model="signUpDetails.repeatPassword" required>
 
         <div class="clearfix">
-          <button type="button" class="cancelbtn" v-on:click="cancelLogin()">Sorry ma</button>
           <button type="submit" class="signUpBtn">Sign Up</button>
         </div>
         <button type="button" class="redirectToLogin" v-on:click="redirectToLogin()">Login</button>
@@ -36,6 +35,8 @@
 
 <script>
   import signUpService from './signUpService.js';
+  import axios from 'axios';
+  import {APIENDPOINT} from "../../app.config";
 
   export default {
     name: "signUp",
@@ -54,8 +55,19 @@
     },
     methods: {
       signUpUser:function() {
+        console.log('signing...');
         const authUser = {};
         var app = this;
+        const newUser = this.makeRequestBody();
+
+        axios.post(APIENDPOINT + '/signup', newUser).then(response=>{
+          console.log('success : ' + response.data)
+          window.localStorage.setItem('token',JSON.stringify(response.data));
+          app.$router.push('/user');
+        }).catch(e=>{
+          console.log('error ' + e)
+        });
+return;
         signUpService.login(this.loginDetails)
           .then(function(res) {
             if(res.status === "success") {
@@ -64,7 +76,6 @@
               authUser.token = res.token;
               app.$store.state.isLoggedIn = true;
               window.localStorage.setItem('lbUser',JSON.stringify(authUser));
-                app.$router.push('/user');
             }else {
               app.$store.state.isLoggedIn = false;
             }
@@ -86,8 +97,15 @@
           app.$router.push('/user');
         }
       },
-      cancelLogin: function () {
-        this.$router.push('/');
+      makeRequestBody: function()
+      {
+        return {
+          nickName: this.signUpDetails.nickName,
+          email: this.signUpDetails.email,
+          firstName: this.signUpDetails.firstName,
+          lastName: this.signUpDetails.lastName,
+          password: this.signUpDetails.password
+        }
       },
       redirectToLogin: function () {
         this.$router.push('/login');

@@ -17,7 +17,6 @@ import java.util.Set;
 public class KekRestController {
     private final KekRepository kekRepository;
 
-    private EntityManager em;
     @Autowired
     KekRestController(KekRepository kekRepository)  {
         this.kekRepository = kekRepository;

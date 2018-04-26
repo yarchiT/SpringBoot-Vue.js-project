@@ -36,8 +36,8 @@ Vue.use(Navbar);
       component:login
     },
     {
-      name:'signUp',
-      path:'/signUp',
+      name:'signup',
+      path:'/signup',
       component:signUp
     },
     {

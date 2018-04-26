@@ -2,30 +2,33 @@ package com.kekker.app.web;
 
 import com.kekker.app.model.User;
 import com.kekker.app.repository.UserRepository;
+import com.kekker.app.service.UserService;
+import com.kekker.app.view.UserRegisterDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import javax.xml.ws.Response;
 import java.util.Collection;
-import java.util.List;
 
-
+@CrossOrigin
 @RestController
 @RequestMapping("/api")
 class UserRestController {
 
     private final UserRepository userRepository;
+    private UserService userService;
 
     @Autowired
-    UserRestController(UserRepository userRepository) {
+    UserRestController(UserRepository userRepository, UserService userService) {
         this.userRepository = userRepository;
+        this.userService = userService;
     }
 
     //Get all
     @GetMapping("/users")
+    @CrossOrigin
     public Collection<User> findAll() {
         return userRepository.findAll();
     }
@@ -36,14 +39,41 @@ class UserRestController {
         return userRepository.findByNickName(nickName);
     }
 
+    @PostMapping("/signin")
+    public String signin(@RequestParam String username,@RequestParam String password) {
+        return userService.signin(username, password);
+    }
+
+    //todo(max): use modelmapping
+    @PostMapping("/signup")
+    public ResponseEntity<String> signup(@Valid @RequestBody UserRegisterDto user) {
+        if (userRepository.findByNickName(user.getNickName()) != null)
+        {
+            return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body("Nickname is taken");
+        }
+
+        if (userRepository.findByEmail(user.getEmail()) != null)
+        {
+            return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body("Email is taken");
+        }
+
+        User registeredUser = new User();
+        registeredUser.setPassword(user.getPassword());
+        registeredUser.setNickName(user.getNickName());
+        registeredUser.setEmail(user.getEmail());
+        registeredUser.setAvatar(null);
+        registeredUser.setFirstName(user.getFirstName());
+        registeredUser.setLastName(user.getLastName());
+        return ResponseEntity.ok(userService.signup(registeredUser));
+    }
+
     //Create new
     @PostMapping("/users")
     public User createUser(@Valid @RequestBody User user) {
         return userRepository.save(user);
     }
 
-    @CrossOrigin
-    @PostMapping("users/login")
+    @PostMapping("/users/login")
     public ResponseEntity<User> login(@RequestParam("nickName") String nickName,
                                @RequestParam("password") String pass)
     {
