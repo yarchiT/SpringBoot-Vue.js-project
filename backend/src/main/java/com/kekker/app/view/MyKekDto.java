@@ -19,14 +19,14 @@ public class MyKekDto implements Serializable{
     private Set<CommentDto> commentsDto = new HashSet<CommentDto>();
 
     //sorry for this, Mr Andrii
-    public MyKekDto(Kek kek,  Set<Comment> comments, Set<Reaction> reactions)
-    {
-        text = kek.getText();
-        imageUrl = kek.getImageUrl();
-        createDate = kek.getCreateDate();
-        initReations(reactions);
-        initComments(comments);
-    }
+//    public MyKekDto(Kek kek,  Set<Comment> comments, Set<Reaction> reactions)
+//    {
+//        text = kek.getText();
+//        imageUrl = kek.getImageUrl();
+//        createDate = kek.getCreateDate();
+//        initReations(reactions);
+//        initComments(comments);
+//    }
 
     public MyKekDto()
     {
@@ -35,6 +35,11 @@ public class MyKekDto implements Serializable{
 
     public MyKekDto(Kek k)
     {
+        text = k.getText();
+        imageUrl = k.getImageUrl();
+        createDate = k.getCreateDate();
+        initReations(k.getReactions());
+        initComments(k.getComments());
     }
 
 
