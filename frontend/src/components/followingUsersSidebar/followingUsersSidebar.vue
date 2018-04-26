@@ -5,7 +5,7 @@
       <div class="w3-white w3-text-grey w3-card-4">
         <div class="w3-display-container">
           <div class="w3-container" style="padding: 0;">
-            <a v-bind:href="/users/ + user.nickName"  v-for="user in followingUsers">
+            <a v-bind:href="/profile/ + user.nickName" v-for="user in followingUsers">
               <div class="follower-div">
                 <img  v-bind:src="user.avatarUrl"class="follower-icon fa-briefcase w3-margin-right">
                 <span class="following-user-name">{{user.nickName}}</span>
