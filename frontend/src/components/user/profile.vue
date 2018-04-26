@@ -81,7 +81,7 @@
             this.userDetails.gender = userData.gender,
             this.userDetails.email = userData.email,
             this.userDetails.avatarUrl = "http://localhost:8181/static/img/user.la5dfca.jpg",
-            this.userDetails.bio = userData.bio      
+            this.userDetails.bio = userData.bio
         },
       getImgUrl(pet) {
         var images = require.context('../../assets/');
@@ -117,9 +117,8 @@
               owner_avatar: currentUser.data.avatarUrl,
               kek_image: el.img,
               reactions:{ loys: 10, disloys: 5},
-              comments: [],
+              comments: userService.getCommentsOfKek(el.comments),
               showComments: false
-              // comments: userService.getCommentsOfKek(el.comments)
             });
           });
           console.log(res.data);

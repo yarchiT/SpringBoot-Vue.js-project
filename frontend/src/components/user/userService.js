@@ -25,7 +25,7 @@ export default {
          owner_avatar: el.owner.avatarUrl,
          owner_nickname: el.owner.nickName,
          text: el.text,
-         date: el.date
+         date: el.creationDate
        });
     });
     }
