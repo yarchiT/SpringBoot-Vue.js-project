@@ -100,13 +100,18 @@
         }
     },
     created() {
-      var currentUser = JSON.parse(window.localStorage.getItem('lbUser'));
-      if(currentUser == null)
-        return;
+      var profileUsersNickName = this.$route.params.nickname;
+
+      if(profileUsersNickName == null){
+        var currentUser = JSON.parse(window.localStorage.getItem('lbUser'));
+        profileUsersNickName = currentUser.nickName;
+        if(currentUser == null)
+          return;
+      }
 
       var userData = {};
       var profile = this;
-      userService.getUserInfo(currentUser.nickName)
+      userService.getUserInfo(profileUsersNickName)
         .then(function (res) {
           console.log("resData: " + JSON.stringify( res.data));
           userData = res.data;

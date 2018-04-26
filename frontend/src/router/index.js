@@ -50,11 +50,17 @@ Vue.use(Navbar);
       meta: { requiresAuth: true , adminAuth:true, userAuth : false}
     },
     {
-    name: 'userProfile',
+    name: 'myProfile',
     path: '/profile',
     component: userProfile,
     meta: {requiresAuth: true, adminAuth: false, userAuth: true}
   },
+   {
+     name: 'userProfile',
+     path: '/profile/:nickname',
+     component: userProfile,
+     meta: {requiresAuth: true, adminAuth: false, userAuth: true}
+   },
   {
 
     name: 'userTimeline',
