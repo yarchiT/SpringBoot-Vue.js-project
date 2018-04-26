@@ -81,37 +81,8 @@
             this.userDetails.gender = userData.gender,
             this.userDetails.email = userData.email,
             this.userDetails.avatarUrl = "http://localhost:8181/static/img/user.la5dfca.jpg",
-            this.userDetails.bio = userData.bio
+            this.userDetails.bio = userData.bio      
         },
-      fillUserKeks: function (keks) {
-        this.userDetails.keks = [
-          {
-            text:"I was in Boston and I forgot Lenin..Upsss!",
-            date:"12/03/2019",
-            owner_id:"kimasik",
-            owner_nickName:"kimasik",
-            owner_avatar:"user.jpg",
-            kek_image:"../../assets/kekPhoto.jpg",
-            reactions:{loys:24,disloys:3},
-            comments:[
-              {
-                owner_id:"kimano",
-                owner_avatar:"trump.jpeg",
-                owner_nickname:"i_love_ivanka",
-                text:"Wow..get mann bro",
-                date:"12/03/2001"
-              },
-              {
-                owner_id:"kimano",
-                owner_avatar:"trump.jpeg",
-                owner_nickname:"i_love_ivanka",
-                text:"Make America great again!",
-                date:"22/03/2017"
-              }
-            ]
-          }
-        ]
-      },
       getImgUrl(pet) {
         var images = require.context('../../assets/');
         return images('./' + pet )
@@ -137,8 +108,6 @@
       userService.getKeks(currentUser.data.nickName)
         .then(function (res) {
           console.log("get keks");
-
-
           res.data.forEach(function (el) {
             profile.userDetails.keks.push({
               text: el.text,
@@ -148,7 +117,8 @@
               owner_avatar: currentUser.data.avatarUrl,
               kek_image: el.img,
               reactions:{ loys: 10, disloys: 5},
-              comments: []
+              comments: [],
+              showComments: false
               // comments: userService.getCommentsOfKek(el.comments)
             });
           });

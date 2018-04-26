@@ -53,6 +53,11 @@
             id: 1,
             text: 'Profile',
             page:'/profile'
+          },
+          {
+            id: 2,
+            text: 'Edit',
+            page:'/edit'
           }
         ],
         text: 'Log out'

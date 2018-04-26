@@ -1,6 +1,10 @@
 <template>
+
+
   <div class="comment-list">
-    <ul>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+
+<!--    <ul>
       <li v-for="comment in comments" transition="slide" v-bind:data-owner="comment.owner_id">
         <div class="profile">
           <img :src="comment.owner_avatar" alt="">
@@ -10,7 +14,27 @@
           <p>{{comment.text}}</p>
         </div></div>
       </li>
-    </ul>
+    </ul>-->
+
+    <div class="row row-comment" v-for="comment in comments" transition="slide" v-bind:data-owner="comment.owner_id">
+      <div class="col-sm-1">
+        <div class="thumbnail">
+          <img class="img-responsive user-photo" :src="getImgUrl(comment.owner_avatar)">
+        </div><!-- /thumbnail -->
+      </div><!-- /col-sm-1 -->
+
+      <div class="col-sm-5">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <strong>{{comment.owner_nickname }}</strong> <span class="text-muted">{{comment.date}}</span>
+          </div>
+          <div class="panel-body">
+            {{comment.text}}
+          </div><!-- /panel-body -->
+        </div><!-- /panel panel-default -->
+      </div><!-- /col-sm-5 -->
+    </div>
+
 
   </div>
 </template>
@@ -47,7 +71,8 @@
   .comment-list{
     overflow: auto;
     width: 90%;
-    height: 100px;
+    height: 150px;
+    overflow-x: hidden;
   }
 
   @media (max-width: 600px) {
@@ -56,7 +81,7 @@
     }
   }
 
-  comment-list li {
+  /*comment-list li {
     list-style: none;
     text-align: left;
     overflow: hidden;
@@ -90,7 +115,7 @@
     font-weight: 700;
     font-size: .8em;
   }
-
+*/
   p {
     display: block;
     -webkit-margin-before: 1em;
@@ -103,5 +128,38 @@
     float: right;
   }
 
+  .thumbnail {
+    padding:0px;
+  }
+  .panel {
+    position:relative;
+  }
+  .panel>.panel-heading:after,.panel>.panel-heading:before{
+    position:absolute;
+    top:11px;left:-16px;
+    right:100%;
+    width:0;
+    height:0;
+    display:block;
+    content:" ";
+    border-color:transparent;
+    border-style:solid solid outset;
+    pointer-events:none;
+  }
+  .panel>.panel-heading:after{
+    border-width:7px;
+    border-right-color:#f7f7f7;
+    margin-top:1px;
+    margin-left:2px;
+  }
+  .panel>.panel-heading:before{
+    border-right-color:#ddd;
+    border-width:8px;
+  }
+
+
+  .row-comment{
+    width: 200%;
+  }
 
 </style>

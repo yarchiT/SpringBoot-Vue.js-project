@@ -8,7 +8,7 @@ import signUp from '../components/signup/signup.vue';
 import admin from '../components/admin/admin.vue';
 import userTimeline from '../components/user/timeline.vue';
 import userProfile from '../components/user/profile.vue';
-
+import edit from '../components/user/edit';
 
 import error from '../components/error.vue';
 
@@ -60,67 +60,20 @@ Vue.use(Navbar);
     name: 'userTimeline',
     path: '/timeline',
     component: userTimeline,
-    meta: {requiresAuth: true, adminAuth: false, userAuth: true},
+    meta: {requiresAuth: true, adminAuth: false, userAuth: true}
   },
-   {
+  {
+	  name: 'edit',
+	  path: '/edit',
+	  component: edit,
+	  meta: {requiresAuth: true, adminAuth: false, userAuth: true}
+  },
+  {
      name:'error',
      path:'/error',
      component:error
    }
   ];
-const routes = [
-  {
-    path: '/',
-    name: 'home',
-    component: Home
-  },
-  {
-    path: '/home',
-    name: 'home',
-    component: Home
-  },
-  {
-    name: 'login',
-    path: '/login',
-    component: login
-  },
-  {
-    name: 'signUp',
-    path: '/signUp',
-    component: signUp
-  },
-  {
-    path: '/about',
-    name: 'about',
-    component: About
-  },
-  {
-    name: 'admin',
-    path: '/admin',
-    component: admin,
-    meta: {requiresAuth: true, adminAuth: true, userAuth: false}
-  },
-
-  {
-    name: 'userProfile',
-    path: '/profile',
-    component: userProfile,
-    meta: {requiresAuth: true, adminAuth: false, userAuth: true}
-  },
-  {
-
-    name: 'userTimeline',
-    path: '/timeline',
-    component: userTimeline,
-    meta: {requiresAuth: true, adminAuth: false, userAuth: true},
-  },
-  {
-    name: 'error',
-    path: '/error',
-    component: error
-  }
-];
->>>>>>> b4657f0db0407ec83e7bb4e218e7bbe3143502e2
 
 const router = new VueRouter({routes, mode: 'history'})
 
