@@ -1,7 +1,7 @@
 <template>
   <div>
 
-    <div class="w3-quarter">
+    <div class="w3-quarter followersContainer">
       <div class="w3-white w3-text-grey w3-card-4">
         <div class="w3-display-container">
           <div class="w3-container" style="padding: 0;">
@@ -49,6 +49,10 @@
   }
   .following-user-name {
     text-decoration: none;
+  }
+
+  .followersContainer{
+    width: 100%;
   }
 
   html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}

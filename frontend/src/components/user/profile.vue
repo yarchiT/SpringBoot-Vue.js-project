@@ -28,6 +28,9 @@
 
               <p class="w3-large"><b><i class="fa fa-asterisk fa-fw w3-margin-right w3-text-teal"></i>About</b></p>
               <p>{{userDetails.bio}}</p>
+
+              <hr>
+              <button class="editProfileBtn"  v-show="true" @click="edit" >Edit</button> <!--todo:show if nickname == authorizated user-->
             </div>
           </div><br>
 
@@ -35,7 +38,14 @@
         </div>
         <!--Right column-->
         <div class="w3-twothird">
-          <AddKek></AddKek>
+          <div class="clearfix">
+            <form>
+              <textarea v-model="newKekText"></textarea>
+            </form>
+            <button class="post-btn add-btn" v-bind:class="{'disabled-btn': isButtonDisabled }" :disabled="isButtonDisabled" v-on:click="addKek">Add kek</button>
+          </div>
+
+
           <Keks v-bind:keks="userDetails.keks"></Keks>
           <!--add timeline here-->
 
@@ -50,8 +60,7 @@
 <script>
   import Keks from './keks.vue';
   import AddKek from './addkek';
-
-  import userService from './userService'
+  import axios from 'axios';
 
   export default {
     name: 'profile', //this is the name of the component
@@ -66,12 +75,20 @@
                 gender:'',
                 bio:'',
                 keks:[]
-            }
+            },
+            isAddRequestPending: false,
+            newKekText: ""
         }
     },
     components:{
         'Keks': Keks,
         'AddKek': AddKek
+    },
+    computed :{
+      isButtonDisabled : function()
+      {
+        return this.isAddRequestPending || this.newKekText === '';
+      }
     },
     methods:{
         fillUserProfileInfo: function (userData) {
@@ -81,7 +98,7 @@
             this.userDetails.gender = userData.gender,
             this.userDetails.email = userData.email,
             this.userDetails.avatarUrl = "http://localhost:8181/static/img/user.la5dfca.jpg",
-            this.userDetails.bio = userData.bio      
+            this.userDetails.bio = userData.bio
         },
       getImgUrl(pet) {
         var images = require.context('../../assets/');
@@ -95,43 +112,309 @@
       getDisLoysImg(){
         return this.getImgUrl("disloys.svg")
       },
-        getUserKeks: function () {
 
-        }
+      getUserKeks: function () {
+
+      },
+
+      edit(){
+        this.$router.push('/edit');
+      },
+
+      addKek:function()
+      {
+        console.log('sending kek...')
+        var kekData = {
+          text: this.newKekText
+        };
+        this.newKekText = "";
+        this.isAddRequestPending = true;
+        //todo: change url
+
+        axios.post("http://jsonplaceholder.typicode.com/posts", {
+          params: {
+            kekText: kekData.text
+          }
+        })
+          .then(response => {
+            // JSON responses are automatically parsed.
+            console.log('dummy request success')
+            //this.followersList = response.data;
+          })
+          .catch(e => {
+            console.log('err ' + e);
+          }).then(()=>{
+          this.isAddRequestPending = false;
+        })
+      },
+
+      fillInfo: function () {
+        this.userDetails.nickname="kimasik",
+          this.userDetails.firtstName="kim",
+          this.userDetails.lastName="chin-in",
+          this.userDetails.gender="male",
+          this.userDetails.email="kim4in@rambler.com",
+          this.userDetails.avatar="user.jpg",
+          this.userDetails.bio="I'm fucking bomberman, I will get married with your handsome dog. Please fuck mexican man and follow me!"
+        this.userDetails.keks = [
+          {
+            id:"ke4ara1",
+            text:"I was in Boston and I forgot Lenin..Upsss!",
+            date:"12/03/2019",
+            owner_id:"kimasik",
+            owner_nickName:"kimasik",
+            owner_avatar:"user.jpg",
+            kek_image:"../../assets/kekPhoto.jpg",
+            reactions:[
+              {
+                type:"loys",
+                owner:{
+                  avatarUrl: "xyu",
+                  nickName:"kimano"
+                }
+              },
+              {
+                type:"loys",
+                owner:{
+                  avatarUrl: "xyu",
+                  nickName:"bracho"
+                }
+              },
+              {
+                type:"loys",
+                owner:{
+                  avatarUrl: "xyu",
+                  nickName:"pancho"
+                }
+              },
+              {
+                type:"disloys",
+                owner:{
+                  avatarUrl: "xyu",
+                  nickName:"rancho"
+                }
+              },
+              {
+                type:"loys",
+                owner:{
+                  avatarUrl: "xyu",
+                  nickName:"kimano"
+                }
+              }
+            ],
+            comments:[
+              {
+                id:"lol",
+                owner_id:"kimano",
+                owner_avatar:"trump.jpeg",
+                owner_nickname:"i_love_ivanka",
+                text:"Wow..get mann bro",
+                date:"12/03/2001"
+              },
+              {
+                id:"kek"  ,
+                owner_id:"kimano",
+                owner_avatar:"trump.jpeg",
+                owner_nickname:"i_love_ivanka",
+                text:"Make America great again!",
+                date:"22/03/2017"
+              }
+            ],
+            showComments:false
+          },
+          {
+            id:"lol1",
+            text:"Ohhh curly brackets, where is my spiner?",
+            date:"15/03/2019",
+            owner_id:"kimasik",
+            owner_nickName:"kimasik",
+            owner_avatar:"user.jpg",
+            kek_image:"../../assets/kekPhoto.jpg",
+            reactions:[
+              {
+                type:"loys",
+                owner:{
+                  avatarUrl: "xyu",
+                  nickName:"kimano"
+                }
+              },
+              {
+                type:"loys",
+                owner:{
+                  avatarUrl: "xyu",
+                  nickName:"bracho"
+                }
+              },
+              {
+                type:"loys",
+                owner:{
+                  avatarUrl: "xyu",
+                  nickName:"pancho"
+                }
+              },
+              {
+                type:"disloys",
+                owner:{
+                  avatarUrl: "xyu",
+                  nickName:"rancho"
+                }
+              },
+              {
+                type:"disloys",
+                owner:{
+                  avatarUrl: "xyu",
+                  nickName:"tekity"
+                }
+              }
+            ],
+            comments:[
+              {
+                id:"4ebyrek",
+                owner_id:"kimano",
+                owner_avatar:"user.jpg",
+                owner_nickname:"kimasik",
+                text:"Smoke weeds every day bro!",
+                date:"12/12/2012"
+              }
+            ],
+            showComments:false
+          },
+          {
+            id:"ke4ara2",
+            text:"'Ebat` Kapat`'-told me father and showed his dick to my sister",
+            date:"05/04/2019",
+            owner_id:"kimasik",
+            owner_nickName:"kimasik",
+            owner_avatar:"user.jpg",
+            kek_image:"../../assets/kekPhoto.jpg",
+            reactions:[
+              {
+                type:"loys",
+                owner:{
+                  avatarUrl: "xyu",
+                  nickName:"kimano"
+                }
+              },
+              {
+                type:"loys",
+                owner:{
+                  avatarUrl: "xyu",
+                  nickName:"bracho"
+                }
+              },
+              {
+                type:"loys",
+                owner:{
+                  avatarUrl: "xyu",
+                  nickName:"pancho"
+                }
+              },
+              {
+                type:"disloys",
+                owner:{
+                  avatarUrl: "xyu",
+                  nickName:"rancho"
+                }
+              }
+            ],
+            comments:[
+              {
+                id:"snoopydog",
+                owner_id:"kimano",
+                owner_avatar:"user.jpg",
+                owner_nickname:"kimasik",
+                text:"Swim!Dream!Love! And fuck bro!",
+                date:"12/12/2012"
+              }
+            ],
+            showComments:false
+          }
+        ]
+      },
+
     },
-    created() {
-      var currentUser = JSON.parse(window.localStorage.getItem('lbUser'));
-      console.log(currentUser.data);
-      this.fillUserProfileInfo(currentUser.data);
-      var profile = this;
 
-      userService.getKeks(currentUser.data.nickName)
-        .then(function (res) {
-          console.log("get keks");
-          res.data.forEach(function (el) {
-            profile.userDetails.keks.push({
-              text: el.text,
-              date: el.date,
-              owner_id: el.nickName,
-              owner_nickName: el.nickName,
-              owner_avatar: currentUser.data.avatarUrl,
-              kek_image: el.img,
-              reactions:{ loys: 10, disloys: 5},
-              comments: [],
-              showComments: false
-              // comments: userService.getCommentsOfKek(el.comments)
-            });
-          });
-          console.log(res.data);
-        })
-        .catch(function (err) {
-          console.log(err);
-        })
+
+    created() {
+
+      this.fillInfo();
+      // var currentUser = JSON.parse(window.localStorage.getItem('lbUser'));
+      // console.log(currentUser.data);
+      // this.fillUserProfileInfo(currentUser.data);
+      // var profile = this;
+      //
+      // userService.getKeks(currentUser.data.nickName)
+      //   .then(function (res) {
+      //     console.log("get keks");
+      //     res.data.forEach(function (el) {
+      //       profile.userDetails.keks.push({
+      //         text: el.text,
+      //         date: el.date,
+      //         owner_id: el.nickName,
+      //         owner_nickName: el.nickName,
+      //         owner_avatar: currentUser.data.avatarUrl,
+      //         kek_image: el.img,
+      //         reactions:{ loys: 10, disloys: 5},
+      //         comments: [],
+      //         showComments: false
+      //         // comments: userService.getCommentsOfKek(el.comments)
+      //       });
+      //     });
+      //     console.log(res.data);
+      //   })
+      //   .catch(function (err) {
+      //     console.log(err);
+      //   })
     }
   }
 </script>
 <style>
 
+  .editProfileBtn{
+    background-color: dodgerblue;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+  }
+
+  textarea {
+    width: 100%;
+    height: 150px;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    font-size: 16px;
+    resize: none;
+  }
+  .clearfix::after {
+    content: "";
+    display: block;
+    clear: both;
+  }
+  .post-btn {
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    background-color: #4CAF50; /* Green */
+    float:right;
+  }
+  .disabled-btn {
+    background-color: #4caf50b5;
+  }
 
 
 </style>

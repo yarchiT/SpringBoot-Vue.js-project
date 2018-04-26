@@ -22,10 +22,19 @@
       </div>
       <div class="row">
         <div class="col-25">
-          <label for="lname">Full Name</label>
+          <label for="firstname">First Name</label>
         </div>
         <div class="col-75">
-          <input type="text" id="lname" name="fullname" placeholder="Your fuk name.."  v-model="user.fullName">
+          <input type="text" id="firstname" name="firstname" placeholder="Your first name name.."  v-model="user.firstname">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-25">
+          <label for="lastname">Last Name</label>
+        </div>
+        <div class="col-75">
+          <input type="text" id="lastname" name="lastname" placeholder="Your last name name.."  v-model="user.lastname">
         </div>
       </div>
 
@@ -65,7 +74,7 @@
 </template>
 
 <script>
-  import VueSweetalert2 from 'vue-sweetalert2';
+
   export default {
     name: 'edit' ,// this is the name of the component
     data(){
@@ -75,7 +84,8 @@
         imagePreview: '',
         user:{
           nickName:"",
-          fullName:"",
+          firstname:"",
+          lastname:"",
           email:"",
           gender:"",
           about:""
