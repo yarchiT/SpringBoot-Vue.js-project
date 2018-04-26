@@ -4,7 +4,7 @@
         <router-link class="logo" v-bind:key="0"
                      :to="`/`">Kekker</router-link>
 
-        <div class="wrap">
+        <div class="wrap" v-if="this.$store.state.isLoggedIn">
           <div class="search">
             <input type="text" v-model="searchInput" class="searchTerm" placeholder="What are you looking for?">
             <button v-on:click="search" class="searchButton">
