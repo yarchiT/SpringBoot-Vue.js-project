@@ -7,12 +7,14 @@ export default {
       var bodyFormData = new FormData();
       bodyFormData.set('nickName', loginDetails.nickName);
       bodyFormData.set('password', loginDetails.password);
-      console.log("loginDetails.password " +loginDetails.password);
-      axios.post(APIENDPOINT + '/users/login', bodyFormData)
+      axios.post(APIENDPOINT + '/login', bodyFormData)
         .then(function (res) {
           resolve(res);
         })
         .catch(function (err) {
+          if(err.response){
+            reject(err.response.status);
+          }
           reject("login error")
         })
     });

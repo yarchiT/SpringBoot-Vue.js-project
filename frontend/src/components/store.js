@@ -5,11 +5,16 @@ Vue.use(Vuex);
 
 export const store = new Vuex.Store({
   state: {
-    isLoggedIn: localStorage.getItem('token') != null,
+    isLoggedIn: localStorage.getItem('lbUser') != null,
     getToken: function() {
-      let ret =  localStorage.getItem('token') || '';
-      console.log('return : ' + ret);
-      return ret.toString();
+      let user =  JSON.parse(localStorage.getItem('lbUser'));
+      let token = user == null ? '' : user.token;
+      return token;
+    },
+    getNickName: function () {
+      let user =  JSON.parse(localStorage.getItem('lbUser'));
+      let nickName = user == null ? '' : user.nickName;
+      return nickName;
     }
     }
 });

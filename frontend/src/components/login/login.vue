@@ -4,10 +4,8 @@
     <div class="container">
       <h1>Login</h1>
       <p>Welcome back bro!</p>
-      <p>Bro we jsut need your fu**ing nick and pass</p>
-      <p>You know what to do right?</p>
       <hr>
-
+      <p class="errorText">{{errorMsg}}</p>
       <label><b>Nickname</b></label>
       <input type="text" placeholder="enter username" v-model="loginDetails.nickName" required>
 
@@ -18,9 +16,13 @@
         <button type="button" class="cancelbtn" v-on:click="cancelLogin()">Sorry ma</button>
         <button type="submit" class="loginBtn">Login</button>
       </div>
-      <button type="button" class="redirectToSignUp" v-on:click="redirectToSignUp()">Sign Up</button>
+
     </div>
   </form>
+  <div>
+    <p>Don't have account?</p>
+    <button type="button" class="redirectToSignUp" v-on:click="redirectToSignUp()">Sign Up</button>
+  </div>
 </div>
 
 </template>
@@ -45,21 +47,22 @@
         var app = this;
         loginService.login(this.loginDetails)
           .then(function(res) {
-              console.log("res.data " + res.data.nickName);
-              authUser.data = res.data;
-            //  authUser.token = res.token;
+               authUser.nickName = app.loginDetails.nickName;
+              authUser.token = res.data;
               app.$store.state.isLoggedIn = true;
               window.localStorage.setItem('lbUser',JSON.stringify(authUser));
               app.$router.push('/profile');
           })
           .catch(function (err){
-            console.log(err);
+              if(err == 401){
+                app.errorMsg = "Invalid username/password";
+              }
           })
       },
       loginAuth:function () {
         var app = this;
-        const status =  JSON.parse(window.localStorage.getItem('lbUser'));
-        if(status === null || status === undefined) {
+        const alreadyLoggedIn =  app.$store.state.isLoggedIn;
+        if(!alreadyLoggedIn) {
           app.$router.push('/login');
         }else {
           app.$router.push('/profile');
@@ -79,6 +82,10 @@
 </script>
 
 <style >
+
+  .errorText{
+    color: red;
+  }
 
   /* Full-width input fields */
   input[type=text], input[type=password] {

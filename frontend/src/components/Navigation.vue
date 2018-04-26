@@ -40,7 +40,7 @@
           {
             id: 2,
             text: 'Sign up',
-            page:'/signUp'
+            page:'/signup'
           }
         ],
         userLinks:[
