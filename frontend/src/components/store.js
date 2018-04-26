@@ -5,10 +5,10 @@ Vue.use(Vuex);
 
 export const store = new Vuex.Store({
   state: {
-    isLoggedIn: localStorage.getItem('token') !== '',
+    isLoggedIn: localStorage.getItem('token') != null,
     getToken: function() {
       let ret =  localStorage.getItem('token') || '';
-      console.log('return : ' + ret)
+      console.log('return : ' + ret);
       return ret.toString();
     }
     }

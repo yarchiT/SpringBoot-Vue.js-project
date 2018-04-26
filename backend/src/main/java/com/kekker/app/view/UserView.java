@@ -1,7 +1,10 @@
 package com.kekker.app.view;
 
+import com.kekker.app.model.User;
+
 import java.io.Serializable;
 
+// UserView class used to return correct user data from database
 public class UserView implements Serializable{
 
     private String avatarUrl;
@@ -13,9 +16,10 @@ public class UserView implements Serializable{
         this.nickName = nickName;
     }
 
-    public UserView()
+    public UserView(User u)
     {
-
+        avatarUrl = u.getAvatarUrl();
+        nickName = u.getNickName();
     }
 
     public String getAvatarUrl() {
