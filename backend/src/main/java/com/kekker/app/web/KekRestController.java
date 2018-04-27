@@ -7,6 +7,7 @@ import com.kekker.app.repository.KekRepository;
 import com.kekker.app.repository.UserRepository;
 import com.kekker.app.utils.Utils;
 
+import com.kekker.app.view.CommentDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -88,12 +89,12 @@ public class KekRestController {
 
     //Create new
     @PostMapping("/kek/comment")
-    public Comment addComment(@RequestParam long kekId,@RequestParam String text) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    public CommentDto addComment(@RequestParam long kekId, @RequestParam String text, @RequestParam String ownerNickName) {
         Comment comment = new Comment(text);
         comment.setKek(kekRepository.findOne(kekId));
-        comment.setOwner(userRepository.findByNickName(authentication.getName()));
+        comment.setOwner(userRepository.findByNickName(ownerNickName));
         comment.setCreationDate(new Date());
-        return commentRepository.save(comment);
+        Comment createdComment = commentRepository.save(comment);
+        return new CommentDto(createdComment);
     }
 }

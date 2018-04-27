@@ -1,5 +1,6 @@
 package com.kekker.app.view;
 
+import com.kekker.app.model.Comment;
 import com.kekker.app.model.User;
 
 import java.io.Serializable;
@@ -16,6 +17,13 @@ public class CommentDto implements Serializable{
         this.text = text;
         this.creationDate = creationDate;
         this.owner = new UserView(owner.getNickName(), owner.getAvatarUrl());
+    }
+
+    public CommentDto(Comment comment)
+    {
+        this.text = comment.getText();
+        this.creationDate = comment.getCreationDate();
+        this.owner = new UserView(comment.getOwner().getNickName(), comment.getOwner().getAvatarUrl());
     }
 
     public CommentDto()
