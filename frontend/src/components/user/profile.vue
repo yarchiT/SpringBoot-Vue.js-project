@@ -59,6 +59,7 @@
 
 <script>
   import Keks from './keks.vue';
+  import userService from './userService';
   import AddKek from './addkek';
   import axios from 'axios';
 
@@ -194,7 +195,7 @@
                 type:"loys",
                 owner:{
                   avatarUrl: "xyu",
-                  nickName:"kimano"
+                  nickName:"lol"
                 }
               }
             ],
@@ -231,7 +232,7 @@
                 type:"loys",
                 owner:{
                   avatarUrl: "xyu",
-                  nickName:"kimano"
+                  nickName:"nerty"
                 }
               },
               {
@@ -341,6 +342,7 @@
 
       var userData = {};
       var profile = this;
+      //this.fillInfo();
       userService.getUserInfo(profileUsersNickName)
         .then(function (res) {
           console.log("resData: " + JSON.stringify(res.data));
@@ -372,7 +374,6 @@
         .catch(function (err) {
           console.log(err);
         });
-
     }
   }
 </script>

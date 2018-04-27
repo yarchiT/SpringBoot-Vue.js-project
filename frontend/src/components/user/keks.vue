@@ -17,10 +17,10 @@
               <section id="feedback">
                 <div class="row centered">
                   <div class="col-xs-6" id="like">
-                    <a href="#" style="color: dodgerblue">{{countReactions(kek,"loys")}} Loys</a>
+                    <a href="#" style="color: dodgerblue"  v-bind:style="{ color: isReactionDisabled(kek,'loys') ? 'dimgrey' : 'dodgerblue'}" @click="makeReaction(kek,'loys')">{{countReactions(kek,"loys")}} Loys</a>
                   </div>
                   <div class="col-xs-6" id="dislike">
-                    <a href="#" style="color: dodgerblue">{{countReactions(kek,"disloys")}} Disloys</a>
+                    <a href="#" style="color: dodgerblue"   v-bind:style="{ color: isReactionDisabled(kek,'disloys') ? 'dimgrey' : 'dodgerblue'}" @click="makeReaction(kek,'disloys')">{{countReactions(kek,"disloys")}} Disloys</a>
                   </div>
                 </div>
               </section>
@@ -47,7 +47,8 @@
     data () {
       return {
         loys: 0,
-        disloys: 0
+        disloys: 0,
+        currentUserNickname: ""
       }
     },
 
@@ -122,11 +123,47 @@
         return result;
       },
 
-      created() {
+      isReactionDisabled(kek,reactionType){
+        return kek.reactions.filter(reaction => reaction.type === reactionType && reaction.owner.nickName === this.currentUserNickname ).length > 0;
+      },
 
-          /*do smth on load*/
-      }
+      makeReaction(kek,reactionType){
+        if(this.isReactionDisabled(kek,reactionType)) {
+          let removeIndex = kek.reactions.map(function(item) { return item.owner.nickName; }).indexOf(this.currentUserNickname);
+          if(removeIndex > -1 && reactionType === kek.reactions[removeIndex].type){
+            kek.reactions.splice(removeIndex, 1);
+          }
+          return;
+        }
+        kek.reactions.push(
+          {
+            type:reactionType,
+            owner:{
+              avatarUrl:"lol",
+              nickName: this.currentUserNickname
+            }
+          }
+        );
 
+        // axios.post('/api/addReaction',{
+        //   params:{
+        //     nickName: this.currentUserNickname,
+        //     type:reactionType,
+        //     kekId: kek.id
+        //   }
+        // })
+        //   .catch(function (error) {
+        //     console.log(error);
+        //    });
+      },
+
+
+    },
+
+    created() {
+      var currentUser = JSON.parse(window.localStorage.getItem('lbUser'));
+      this.currentUserNickname = currentUser.nickName;
+      /*do smth on load*/
     }
   }
 </script>
@@ -237,5 +274,9 @@
   {
     transform: translateX(10px);
     opacity: 0;
+  }
+
+  .isReactionDisabled{
+    color: dimgrey;
   }
 </style>
