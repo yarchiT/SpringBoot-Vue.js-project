@@ -80,7 +80,7 @@ public class KekRestController {
         return kekRepository.save(kekDetails);
     }
 
-    @DeleteMapping("keks/{id}")
+    @DeleteMapping("/keks/{id}")
     public void deleteKek(@PathVariable long id)
     {
         kekRepository.delete(id);
