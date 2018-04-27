@@ -56,8 +56,6 @@
       },
       props:{
           comments:{
-              type:Array,
-              required: true
           },
         kekId:{
             type: Number,

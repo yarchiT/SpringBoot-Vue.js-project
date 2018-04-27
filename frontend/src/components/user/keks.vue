@@ -47,6 +47,7 @@
 
   import Vue from 'vue';
   import VueSweetalert2 from 'vue-sweetalert2';
+  import {APIENDPOINT} from '../../app.config';
 
   Vue.use(VueSweetalert2);
   export default {
@@ -107,10 +108,12 @@
 
       deleteKek(kek){
         let id = kek.id;
+        console.log(JSON.stringify(kek))
         let removeIndex = this.keks.map(function(item) { return item.id; }).indexOf(kek.id);
         this.keks.splice(removeIndex, 1);
-        axios.delete('/api/' + id).then(response =>
+        axios.delete(APIENDPOINT + '/keks/' + id).then(response =>
           console.log('kek cheburek'))
+        this.$swal("Deleted successfully!")
           .catch(function (error) {
             console.log(error);
           });
