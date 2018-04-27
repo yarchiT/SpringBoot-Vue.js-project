@@ -34,22 +34,51 @@
         </div><!-- /panel panel-default -->
       </div><!-- /col-sm-5 -->
     </div>
+  <hr>
+    <form>
+      <textarea v-model="newCommentText" style="width: 90%"></textarea>
+    </form>
+    <button class="post-btn add-btn" v-bind:class="{'disabled-btn': isButtonDisabled }" :disabled="isButtonDisabled" v-on:click="addComent">Add comment</button>
 
 
   </div>
 </template>
 
 <script>
+  import userService from "./userService";
   export default{
       name:'comments',
+    data(){
+      return {
+        newCommentText: '',
+        currentUserNickName: ''
+      }
+      },
       props:{
           comments:{
+<<<<<<< HEAD
 
           }
+=======
+              type:Array,
+              required: true
+          },
+        kekId:{
+            type: Number,
+            required: true
+        }
+>>>>>>> 40fc81ae744c3b5a0b09325152df387c3cb84304
       },
+    computed :{
+      isButtonDisabled : function()
+      {
+        return this.newKekText === '';
+      }
+    },
 
       methods:{
         getImgUrl(pet) {
+<<<<<<< HEAD
           if(!pet || /^\s*$/.test(pet)){
             pet = "empty.png"
           }
@@ -57,10 +86,45 @@
           return images('./' + pet )
         },
       }
+=======
+          var images = require.context('../../assets/');
+          return images('./' + pet )
+        },
+        addComent(){
+          var comments = this;
+          if(this.newCommentText !== ''){
+            userService.addComment(this.kekId, this.newCommentText)
+              .then(function (res) {
+
+              })
+              .catch(function (err) {
+
+              });
+            comments.newCommentText = '';
+          }
+        }
+      },
+    created() {
+    this.currentUserNickName = this.$store.state.getNickName();
+    }
+>>>>>>> 40fc81ae744c3b5a0b09325152df387c3cb84304
   }
 </script>
 
 <style>
+  .post-btn {
+    border: none;
+    color: white;
+    padding: 5px 12px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    background-color: #4CAF50; /* Green */
+  }
+
   .comment-list .profile img {
     border-radius: 50%;
     border: 2px solid #fff;

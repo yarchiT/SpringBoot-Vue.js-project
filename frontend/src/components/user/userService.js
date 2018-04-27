@@ -126,6 +126,24 @@ export default {
           reject("get user followings error")
         })
     });
+  },
+  addComment(kekId,text){
+    return new Promise(function (resolve, reject) {
+      var bodyFormData = new FormData();
+      bodyFormData.set('kekId', kekId);
+      bodyFormData.set('text', text);
+      axios.post(APIENDPOINT + '/kek/comment', bodyFormData)
+        .then(function (res) {
+          console.log(JSON.stringify(res.data));
+          resolve(res.data);
+        })
+        .catch(function (err) {
+          if (err.response) {
+            reject(err.response.status);
+          }
+          reject("unfollow error")
+        })
+    });
   }
 
 }

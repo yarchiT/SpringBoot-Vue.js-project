@@ -33,7 +33,7 @@
         </div>
         <transition name="slide-fade">
         <div class="comments_area"  v-show="kek.showComment" v-bind:data-kekId="kek.id" v-bind:class="{ borderForComments : kek.showComment }">
-          <Comments v-bind:comments="kek.comments"></Comments>
+          <Comments v-bind:comments="kek.comments" v-bind:kekId="kek.id" ></Comments>
         </div>
         </transition>
       </div>

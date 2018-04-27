@@ -1,10 +1,17 @@
 package com.kekker.app.web;
 
+import com.kekker.app.model.Comment;
 import com.kekker.app.model.Kek;
+import com.kekker.app.repository.CommentRepository;
 import com.kekker.app.repository.KekRepository;
 import com.kekker.app.repository.UserRepository;
+<<<<<<< HEAD
 import com.kekker.app.utils.Utils;
+=======
+>>>>>>> 40fc81ae744c3b5a0b09325152df387c3cb84304
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -19,10 +26,13 @@ public class KekRestController {
     private final KekRepository kekRepository;
     private final UserRepository userRepository;
 
+    private final CommentRepository commentRepository;
+
     @Autowired
-    KekRestController(KekRepository kekRepository, UserRepository userRepository)  {
+    KekRestController(KekRepository kekRepository, UserRepository userRepository, CommentRepository commentRepository)  {
         this.kekRepository = kekRepository;
         this.userRepository = userRepository;
+        this.commentRepository = commentRepository;
     }
 
     //Get all
@@ -76,5 +86,16 @@ public class KekRestController {
     public void deleteKek(@PathVariable long id)
     {
         kekRepository.delete(id);
+    }
+
+    //Create new
+    @PostMapping("/kek/comment")
+    public Comment addComment(@RequestParam long kekId,@RequestParam String text) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Comment comment = new Comment(text);
+        comment.setKek(kekRepository.findOne(kekId));
+        comment.setOwner(userRepository.findByNickName(authentication.getName()));
+        comment.setCreationDate(new Date());
+        return commentRepository.save(comment);
     }
 }
