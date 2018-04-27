@@ -25,9 +25,6 @@ public class Kek implements Serializable{
     @Size(max = 200)
     private String text;
 
-    @Null
-    private String imageUrl;
-
     @NotNull
     @Temporal(TemporalType.DATE)
     private Date createDate;
@@ -37,11 +34,9 @@ public class Kek implements Serializable{
     @JoinColumn(name = "owner_nick_name")
     private User owner;
 
-    @NotNull
     @OneToMany(mappedBy = "kek", fetch = FetchType.LAZY)
     private Set<Comment> comments;
 
-    @NotNull
     @OneToMany(mappedBy = "kek", fetch = FetchType.LAZY)
     private Set<Reaction> reactions = new HashSet<Reaction>();
 
@@ -95,11 +90,4 @@ public class Kek implements Serializable{
         this.reactions = reactions;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
 }

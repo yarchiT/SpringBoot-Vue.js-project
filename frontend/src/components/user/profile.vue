@@ -74,6 +74,7 @@
 <script>
   import Keks from './keks.vue';
   import userService from './userService';
+  import {APIENDPOINT} from '../../app.config';
   import AddKek from './addkek';
   import axios from 'axios';
 
@@ -95,7 +96,6 @@
             newKekText: "",
             isOwnProfile: false,
             areYouFollowingHim: false,
-            keksCount: 0,
           // user who is logged in right now
           currentUserNickName: ''
         }
@@ -108,6 +108,10 @@
       isButtonDisabled : function()
       {
         return this.isAddRequestPending || this.newKekText === '';
+      },
+      keksCount: function()
+      {
+        return this.userDetails.keks.length;
       }
     },
     methods:{
@@ -163,21 +167,17 @@
       addKek:function()
       {
         console.log('sending kek...')
-        var kekData = {
-          text: this.newKekText
-        };
+        var kekData = new FormData();
+        kekData.set('text', this.newKekText);
         this.newKekText = "";
         this.isAddRequestPending = true;
         //todo: change url
 
-        axios.post("http://jsonplaceholder.typicode.com/posts", {
-          params: {
-            kekText: kekData.text
-          }
-        })
+        axios.post(APIENDPOINT + "/keks", kekData)
           .then(response => {
             // JSON responses are automatically parsed.
             console.log('dummy request success')
+            this.userDetails.keks.push(response.data);
             //this.followersList = response.data;
           })
           .catch(e => {
@@ -186,191 +186,6 @@
           this.isAddRequestPending = false;
         })
       },
-
-      fillInfo: function () {
-        this.userDetails.nickname="kimasik",
-          this.userDetails.firtstName="kim",
-          this.userDetails.lastName="chin-in",
-          this.userDetails.gender="male",
-          this.userDetails.email="kim4in@rambler.com",
-          this.userDetails.avatar="user.jpg",
-          this.userDetails.bio="I'm fucking bomberman, I will get married with your handsome dog. Please fuck mexican man and follow me!"
-        this.userDetails.keks = [
-          {
-            id:"ke4ara1",
-            text:"I was in Boston and I forgot Lenin..Upsss!",
-            date:"12/03/2019",
-            owner_id:"kimasik",
-            owner_nickName:"kimasik",
-            owner_avatar:"user.jpg",
-            kek_image:"../../assets/kekPhoto.jpg",
-            reactions:[
-              {
-                type:"loys",
-                owner:{
-                  avatarUrl: "xyu",
-                  nickName:"kimano"
-                }
-              },
-              {
-                type:"loys",
-                owner:{
-                  avatarUrl: "xyu",
-                  nickName:"bracho"
-                }
-              },
-              {
-                type:"loys",
-                owner:{
-                  avatarUrl: "xyu",
-                  nickName:"pancho"
-                }
-              },
-              {
-                type:"disloys",
-                owner:{
-                  avatarUrl: "xyu",
-                  nickName:"rancho"
-                }
-              },
-              {
-                type:"loys",
-                owner:{
-                  avatarUrl: "xyu",
-                  nickName:"kimano"
-                }
-              }
-            ],
-            comments:[
-              {
-                id:"lol",
-                owner_id:"kimano",
-                owner_avatar:"trump.jpeg",
-                owner_nickname:"i_love_ivanka",
-                text:"Wow..get mann bro",
-                date:"12/03/2001"
-              },
-              {
-                id:"kek"  ,
-                owner_id:"kimano",
-                owner_avatar:"trump.jpeg",
-                owner_nickname:"i_love_ivanka",
-                text:"Make America great again!",
-                date:"22/03/2017"
-              }
-            ],
-            showComments:false
-          },
-          {
-            id:"lol1",
-            text:"Ohhh curly brackets, where is my spiner?",
-            date:"15/03/2019",
-            owner_id:"kimasik",
-            owner_nickName:"kimasik",
-            owner_avatar:"user.jpg",
-            kek_image:"../../assets/kekPhoto.jpg",
-            reactions:[
-              {
-                type:"loys",
-                owner:{
-                  avatarUrl: "xyu",
-                  nickName:"kimano"
-                }
-              },
-              {
-                type:"loys",
-                owner:{
-                  avatarUrl: "xyu",
-                  nickName:"bracho"
-                }
-              },
-              {
-                type:"loys",
-                owner:{
-                  avatarUrl: "xyu",
-                  nickName:"pancho"
-                }
-              },
-              {
-                type:"disloys",
-                owner:{
-                  avatarUrl: "xyu",
-                  nickName:"rancho"
-                }
-              },
-              {
-                type:"disloys",
-                owner:{
-                  avatarUrl: "xyu",
-                  nickName:"tekity"
-                }
-              }
-            ],
-            comments:[
-              {
-                id:"4ebyrek",
-                owner_id:"kimano",
-                owner_avatar:"user.jpg",
-                owner_nickname:"kimasik",
-                text:"Smoke weeds every day bro!",
-                date:"12/12/2012"
-              }
-            ],
-            showComments:false
-          },
-          {
-            id:"ke4ara2",
-            text:"'Ebat` Kapat`'-told me father and showed his dick to my sister",
-            date:"05/04/2019",
-            owner_id:"kimasik",
-            owner_nickName:"kimasik",
-            owner_avatar:"user.jpg",
-            kek_image:"../../assets/kekPhoto.jpg",
-            reactions:[
-              {
-                type:"loys",
-                owner:{
-                  avatarUrl: "xyu",
-                  nickName:"kimano"
-                }
-              },
-              {
-                type:"loys",
-                owner:{
-                  avatarUrl: "xyu",
-                  nickName:"bracho"
-                }
-              },
-              {
-                type:"loys",
-                owner:{
-                  avatarUrl: "xyu",
-                  nickName:"pancho"
-                }
-              },
-              {
-                type:"disloys",
-                owner:{
-                  avatarUrl: "xyu",
-                  nickName:"rancho"
-                }
-              }
-            ],
-            comments:[
-              {
-                id:"snoopydog",
-                owner_id:"kimano",
-                owner_avatar:"user.jpg",
-                owner_nickname:"kimasik",
-                text:"Swim!Dream!Love! And fuck bro!",
-                date:"12/12/2012"
-              }
-            ],
-            showComments:false
-          }
-        ]
-      },
-
     },
     created() {
       var profileUsersNickName = this.$route.params.nickname;
@@ -416,7 +231,6 @@
                 });
 
               });
-              profile.keksCount = profile.userDetails.keks.length;
             })
             .catch(function (err) {
               console.log(err);

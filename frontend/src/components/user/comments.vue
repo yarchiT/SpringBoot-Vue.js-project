@@ -44,8 +44,7 @@
       name:'comments',
       props:{
           comments:{
-              type:Array,
-              required: true
+
           }
       },
 

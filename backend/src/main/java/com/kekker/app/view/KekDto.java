@@ -39,7 +39,6 @@ public class KekDto implements Serializable{
     public KekDto(Kek k)
     {
         text = k.getText();
-        imageUrl = k.getImageUrl();
         createDate = k.getCreateDate();
         ownerNickName = k.getOwner().getNickName();
         ownerAvatarUrl = k.getOwner().getAvatarUrl();

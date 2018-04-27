@@ -43,6 +43,8 @@
 
 <script>
   import Comments from './comments.vue'
+  import axios from 'axios';
+
   export default {
     name: 'keks', //this is the name of the component
 
@@ -96,25 +98,15 @@
       },
 
       deleteKek(kek){
-        console.log("delete comment");
+        let id = kek.id;
         let removeIndex = this.keks.map(function(item) { return item.id; }).indexOf(kek.id);
         this.keks.splice(removeIndex, 1);
-        let isDeleted = true;
-        // let isDeleted = false;
-        //
-        // axios.post('/api/deleteKek',{
-        //   params:{
-        //     kekId:kek.id
-        //   }
-        //
-        // }).then(response => isDeleted = response.data)
-        //   .catch(function (error) {
-        //     console.log(error);
-        //   });
-        //
-        if(isDeleted){
-          alert("Deleted successfully!")
-        }
+
+        axios.delete('/api/' + id).then(response =>
+          console.log('kek cheburek'))
+          .catch(function (error) {
+            console.log(error);
+          });
 
 
       },
