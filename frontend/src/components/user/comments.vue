@@ -19,7 +19,7 @@
     <div class="row row-comment" v-for="comment in comments" transition="slide" v-bind:data-owner="comment.owner_id">
       <div class="col-sm-1">
         <div class="thumbnail">
-          <img class="img-responsive user-photo" :src="comment.owner_avatar">
+          <img class="img-responsive user-photo" :src="getImgUrl(comment.owner_avatar)">
         </div><!-- /thumbnail -->
       </div><!-- /col-sm-1 -->
 
@@ -50,9 +50,12 @@
 
       methods:{
         getImgUrl(pet) {
-          var images = require.context('../../assets/')
+          if(!pet || /^\s*$/.test(pet)){
+            pet = "empty.png"
+          }
+          var images = require.context('../../assets/');
           return images('./' + pet )
-        }
+        },
       }
   }
 </script>

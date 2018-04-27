@@ -2,11 +2,11 @@
   <div>
     <div class="kek" v-for="kek in keks" v-bind:data-owner="kek.owner_id" v-bind:id="kek.id">
       <div class="w3-container w3-card w3-white" >
-        <img :src="kek.owner_avatar" class="kek_owner_avatar">
+        <img :src="getImgUrl(kek.owner_avatar)" class="kek_owner_avatar">
         <a v-bind:href="/profile/ + kek.owner_nickName">
         <h2 class="w3-text-grey w3-padding-16 kek_owner_nickname" >{{kek.owner_nickName}}</h2>
         </a>
-          <input v-if="!isTimeline" type="image" :src="getImgUrl('delete-button.svg')" class="remove_kek_btn" @click="deleteKek(kek)"/>
+        <input v-if="!isTimeline" type="image" :src="getImgUrl('delete-button.svg')" class="remove_kek_btn" @click="deleteKek(kek)"/>
         <hr>
         <div class="w3-container">
           <h5 class="w3-opacity">{{kek.kek_image}}</h5>
@@ -19,10 +19,10 @@
               <section id="feedback">
                 <div class="row centered">
                   <div class="col-xs-6" id="like">
-                    <a href="#" style="color: dodgerblue">{{countReactions(kek,"loys")}} Loys</a>
+                    <a href="#" style="color: dodgerblue"  v-bind:style="{ color: isReactionDisabled(kek,'loys') ? 'dimgrey' : 'dodgerblue'}" @click="makeReaction(kek,'loys')">{{countReactions(kek,"loys")}} Loys</a>
                   </div>
                   <div class="col-xs-6" id="dislike">
-                    <a href="#" style="color: dodgerblue">{{countReactions(kek,"disloys")}} Disloys</a>
+                    <a href="#" style="color: dodgerblue"   v-bind:style="{ color: isReactionDisabled(kek,'disloys') ? 'dimgrey' : 'dodgerblue'}" @click="makeReaction(kek,'disloys')">{{countReactions(kek,"disloys")}} Disloys</a>
                   </div>
                 </div>
               </section>
@@ -45,13 +45,18 @@
   import Comments from './comments.vue'
   import axios from 'axios';
 
+  import Vue from 'vue';
+  import VueSweetalert2 from 'vue-sweetalert2';
+
+  Vue.use(VueSweetalert2);
   export default {
     name: 'keks', //this is the name of the component
 
     data () {
       return {
         loys: 0,
-        disloys: 0
+        disloys: 0,
+        currentUserNickname: ""
       }
     },
 
@@ -80,6 +85,9 @@
     methods:{
 
       getImgUrl(pet) {
+        if(!pet || /^\s*$/.test(pet)){
+          pet = "empty.png"
+        }
         var images = require.context('../../assets/');
         return images('./' + pet )
       },
@@ -101,7 +109,6 @@
         let id = kek.id;
         let removeIndex = this.keks.map(function(item) { return item.id; }).indexOf(kek.id);
         this.keks.splice(removeIndex, 1);
-
         axios.delete('/api/' + id).then(response =>
           console.log('kek cheburek'))
           .catch(function (error) {
@@ -115,11 +122,48 @@
         return result;
       },
 
-      created() {
+      isReactionDisabled(kek,reactionType){
+        return kek.reactions.filter(reaction => reaction.type === reactionType && reaction.owner.nickName === this.currentUserNickname ).length > 0;
+      },
 
-          /*do smth on load*/
-      }
+      makeReaction(kek,reactionType){
+        if(this.isReactionDisabled(kek,reactionType)) {
+          for (var i =0; i < kek.reactions.length; i++)
+            if (kek.reactions[i].owner.nickName === this.currentUserNickname && kek.reactions[i].type === reactionType) {
+              kek.reactions.splice(i,1);
+              break;
+            }
+          return;
+        }
+        kek.reactions.push(
+          {
+            type:reactionType,
+            owner:{
+              avatarUrl:"lol",
+              nickName: this.currentUserNickname
+            }
+          }
+        );
 
+        // axios.post('/api/addReaction',{
+        //   params:{
+        //     nickName: this.currentUserNickname,
+        //     type:reactionType,
+        //     kekId: kek.id
+        //   }
+        // })
+        //   .catch(function (error) {
+        //     console.log(error);
+        //    });
+      },
+
+
+    },
+
+    created() {
+      var currentUser = JSON.parse(window.localStorage.getItem('lbUser'));
+      this.currentUserNickname = currentUser.nickName;
+      /*do smth on load*/
     }
   }
 </script>
@@ -230,5 +274,9 @@
   {
     transform: translateX(10px);
     opacity: 0;
+  }
+
+  .isReactionDisabled{
+    color: dimgrey;
   }
 </style>
