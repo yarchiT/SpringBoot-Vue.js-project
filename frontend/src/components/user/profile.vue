@@ -146,6 +146,7 @@
           .then(function (res) {
             if(res.data == "OK"){
               app.areYouFollowingHim = true;
+              app.$swal("You just followed " + app.userDetails.nickName)
             }
           })
           .catch(function (err) {
@@ -158,6 +159,7 @@
           .then(function (res) {
             if(res.data == "OK"){
               app.areYouFollowingHim = false;
+              app.$swal("You unfollowed " + app.userDetails.nickName)
             }
           })
           .catch(function (err) {
