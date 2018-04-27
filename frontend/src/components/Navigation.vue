@@ -71,6 +71,7 @@
     methods: {
       logout: function () {
         this.$store.state.isLoggedIn = false;
+        window.localStorage.setItem("lbUser", null);
           window.localStorage.clear();
         this.$router.push("/")
       },

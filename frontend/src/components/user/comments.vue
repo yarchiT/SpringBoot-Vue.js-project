@@ -77,6 +77,7 @@
                   text: res.data.text,
                   date: res.data.creationDate,
                   owner_id: res.data.owner.nickName,
+                  owner_nickname: res.data.owner.nickName,
                   owner_avatar: res.data.owner.avatarUrl
                 });
               })
