@@ -7,7 +7,7 @@
           <div class="w3-container" style="padding: 0;">
             <a v-bind:href="/profile/ + user.nickName" v-for="user in followingUsers">
               <div class="follower-div">
-                <img  v-bind:src="user.avatarUrl"class="follower-icon fa-briefcase w3-margin-right">
+                <img  v-bind:src="getImgUrl(user.avatarUrl)"class="follower-icon fa-briefcase w3-margin-right">
                 <span class="following-user-name">{{user.nickName}}</span>
               </div>
             </a>
@@ -25,6 +25,15 @@
       followingUsers: {
         type: Array,
         required: true
+      }
+    },
+    methods: {
+      getImgUrl(pet) {
+        if(!pet || /^\s*$/.test(pet)){
+          pet = "empty.png"
+        }
+        var images = require.context('../../assets/');
+        return images('./' + pet )
       }
     }
   }

@@ -5,7 +5,7 @@
 
       <li style="width:750px" v-for="user in foundUsers">
         <a v-bind:href="/profile/ + user.nickName">
-        <img v-bind:src="user.avatarUrl" >
+        <img v-bind:src="getImgUrl(user.avatarUrl)" >
         <h1>{{user.firstName}} {{user.lastName}}</h1>
         <h3>{{user.nickName}}</h3>
         <p>{{user.bio}}</p>
@@ -42,6 +42,13 @@
       }
     },
     methods: {
+      getImgUrl(pet) {
+        if(!pet || /^\s*$/.test(pet)){
+          pet = "empty.png"
+        }
+        var images = require.context('../assets');
+        return images('./' + pet )
+      },
       fetchUsers:function()
           {
             axios.get(APIENDPOINT + '/search?nickname=' + this.$route.query.nickname).then(response=>{
@@ -49,7 +56,7 @@
             }).catch(err=>{
               console.log('error fetching searched users : ' + err)
             })
-          }
+          },
     },
       created()
       {
