@@ -129,10 +129,11 @@
 
       makeReaction(kek,reactionType){
         if(this.isReactionDisabled(kek,reactionType)) {
-          let removeIndex = kek.reactions.map(function(item) { return item.owner.nickName; }).indexOf(this.currentUserNickname);
-          if(removeIndex > -1 && reactionType === kek.reactions[removeIndex].type){
-            kek.reactions.splice(removeIndex, 1);
-          }
+          for (var i =0; i < kek.reactions.length; i++)
+            if (kek.reactions[i].owner.nickName === this.currentUserNickname && kek.reactions[i].type === reactionType) {
+              kek.reactions.splice(i,1);
+              break;
+            }
           return;
         }
         kek.reactions.push(
