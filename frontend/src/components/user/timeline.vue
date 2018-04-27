@@ -52,6 +52,7 @@
               .then(function (res) {
                     res.data.forEach(function (el) {
                       timeline.keks.push({
+                        id:el.id,
                         text: el.text,
                         date: el.createDate,
                         owner_id: el.ownerNickName,

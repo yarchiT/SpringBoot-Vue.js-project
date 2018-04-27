@@ -37,6 +37,12 @@ public class Comment implements Serializable {
     private Kek kek;
 
     // Long kek_id
+    public Comment(){
+    }
+
+    public Comment(String text){
+        this.text = text;
+    }
 
     public long getId() {
         return id;

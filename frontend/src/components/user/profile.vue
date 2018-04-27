@@ -404,6 +404,7 @@
             .then(function (res) {
               res.data.forEach(function (el) {
                 profile.userDetails.keks.push({
+                  id:el.id,
                   text: el.text,
                   date: el.createDate,
                   owner_id: userData.nickName,
