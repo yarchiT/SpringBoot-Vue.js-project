@@ -374,16 +374,13 @@
     },
     created() {
       var profileUsersNickName = this.$route.params.nickname;
-      var currentUser = JSON.parse(window.localStorage.getItem('lbUser'));
-      this.currentUserNickName = currentUser.nickName;
+      this.currentUserNickName = this.$store.state.getNickName();
 
       if (profileUsersNickName == null) {
         profileUsersNickName = this.currentUserNickName;
-        if (currentUser == null)
-          return;
       }
 
-      this.isOwnProfile = profileUsersNickName == currentUser.nickName;
+      this.isOwnProfile = profileUsersNickName == this.currentUserNickName;
 
       var userData = {};
       var profile = this;

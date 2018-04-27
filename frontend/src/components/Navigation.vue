@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="margin-bottom: 40px;">
       <nav class="navbar"  v-on:click.prevent>
         <router-link class="logo" v-bind:key="0"
                      :to="`/`">Kekker</router-link>

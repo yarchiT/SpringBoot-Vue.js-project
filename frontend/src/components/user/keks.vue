@@ -3,8 +3,10 @@
     <div class="kek" v-for="kek in keks" v-bind:data-owner="kek.owner_id" v-bind:id="kek.id">
       <div class="w3-container w3-card w3-white" >
         <img :src="kek.owner_avatar" class="kek_owner_avatar">
-        <h2 class="w3-text-grey w3-padding-16 kek_owner_nickname">{{kek.owner_nickName}}</h2>
-        <input v-if="!isTimeline" type="image" :src="getImgUrl('delete-button.svg')" class="remove_kek_btn" @click="deleteKek(kek)"/>
+        <a v-bind:href="/profile/ + kek.owner_nickName">
+        <h2 class="w3-text-grey w3-padding-16 kek_owner_nickname" >{{kek.owner_nickName}}</h2>
+        </a>
+          <input v-if="!isTimeline" type="image" :src="getImgUrl('delete-button.svg')" class="remove_kek_btn" @click="deleteKek(kek)"/>
         <hr>
         <div class="w3-container">
           <h5 class="w3-opacity">{{kek.kek_image}}</h5>
@@ -116,9 +118,7 @@
 
 
       },
-
       countReactions(kek,reactionType){
-        console.log("reactions: "+ JSON.stringify(kek.reactions));
         const result = kek.reactions.filter(reaction => reaction.type === reactionType).length;
         return result;
       },

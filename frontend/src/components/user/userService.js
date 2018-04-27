@@ -101,6 +101,31 @@ export default {
           reject("unfollow error")
         })
     });
+  },
+  getTimelinekeks(myNickName){
+    return new Promise(function (resolve, reject) {
+      axios.get(APIENDPOINT + '/users/'+myNickName+"/timeline")
+        .then(function (res) {
+          resolve(res);
+        })
+        .catch(function (err) {
+          reject("get keks error")
+        })
+    });
+  },
+  getUserFollowings(myNickName){
+    return new Promise(function (resolve, reject) {
+      axios.get(APIENDPOINT + '/following/'+myNickName)
+        .then(function (res) {
+          resolve(res);
+        })
+        .catch(function (err) {
+          if (err.response) {
+            reject(err.response.status);
+          }
+          reject("get user followings error")
+        })
+    });
   }
 
 }

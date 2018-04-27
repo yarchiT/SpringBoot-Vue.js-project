@@ -12,8 +12,11 @@ import java.util.Set;
 
 public class KekDto implements Serializable{
 
+
     private String text;
     private String imageUrl;
+    private String ownerNickName;
+    private String ownerAvatarUrl;
     private Date createDate;
     private Set<ReactionDto> reactionsDto = new HashSet<ReactionDto>();
     private Set<CommentDto> commentsDto = new HashSet<CommentDto>();
@@ -38,6 +41,8 @@ public class KekDto implements Serializable{
         text = k.getText();
         imageUrl = k.getImageUrl();
         createDate = k.getCreateDate();
+        ownerNickName = k.getOwner().getNickName();
+        ownerAvatarUrl = k.getOwner().getAvatarUrl();
         initReations(k.getReactions());
         initComments(k.getComments());
     }
@@ -95,5 +100,21 @@ public class KekDto implements Serializable{
 
     public void setCommentsDto(Set<CommentDto> commentsDto) {
         this.commentsDto = commentsDto;
+    }
+
+    public String getOwnerNickName() {
+        return ownerNickName;
+    }
+
+    public void setOwnerNickName(String ownerNickName) {
+        this.ownerNickName = ownerNickName;
+    }
+
+    public String getOwnerAvatarUrl() {
+        return ownerAvatarUrl;
+    }
+
+    public void setOwnerAvatarUrl(String ownerAvatarUrl) {
+        this.ownerAvatarUrl = ownerAvatarUrl;
     }
 }

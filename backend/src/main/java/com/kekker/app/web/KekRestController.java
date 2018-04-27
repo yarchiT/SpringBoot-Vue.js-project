@@ -37,7 +37,12 @@ public class KekRestController {
     public Collection<?> getUserKeks(@PathVariable("nickname") String nickname) {
         Collection<?> temp = kekRepository.findUserKeks(nickname);
         return temp;
-        //return kekRepository.findUserKeks(nickname);
+    }
+
+    //Get by id
+    @GetMapping("/users/{nickName}/timeline")
+    public Collection<?> getUserTimelineKeks(@PathVariable("nickName") String nickName) {
+        return kekRepository.findUserTimelineKeks(nickName);
     }
 
     //Create new
