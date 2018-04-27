@@ -36,33 +36,27 @@ public class User implements Serializable{
 
     private String avatarUrl;
 
-    @Null
     @Size(max = 120)
     private String bio;
 
-    @Null
     @Size(max = 15)
     @Column
     private String gender;
 
-    @Null
     @JsonIgnore
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Kek> keks;   // array of all written keks by user
 
-    @Null
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore
     private Set<Comment> comments;   // array of all written comments by user
 
-    @Null
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore
     private Set<Reaction> reactions;   // array of all reactions set by user
 
     // following_nickName - user you are following
     // user_nickName - you
-    @Null
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "userFollowers", joinColumns = {
             @JoinColumn(name = "following_nickName", nullable = false)}, inverseJoinColumns = {

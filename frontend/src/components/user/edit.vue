@@ -1,25 +1,16 @@
 <template>
   <div class="container">
-    <form onsubmit="submit()">
-      <div class="row">
-        <div class="col-25">
-          <label for="src">Image</label>
-        </div>
-        <div class="col-75">
-          <input id="src" type="file" v-on:change="handleFileUpload" accept="image/*"/>
-          <img v-bind:src="imagePreview" v-show="showPreview"/>
-        </div>
-      </div>
-
+    <form v-on:submit.prevent="submit">
       <div class="row">
 
         <div class="col-25">
           <label for="fnickname">Nickname</label>
         </div>
         <div class="col-75">
-          <input type="text" id="fnickname" name="nickname" placeholder="Your nickname.." v-model="user.nickName">
+          <input type="text" id="fnickname" name="nickname" placeholder="Your nickname.." v-model="user.nickName" readonly>
         </div>
       </div>
+
       <div class="row">
         <div class="col-25">
           <label for="firstname">First Name</label>
@@ -43,7 +34,7 @@
           <label for="lemail">Email</label>
         </div>
         <div class="col-75">
-          <input type="text" id="lemail" name="email" placeholder="Your email.." v-model="user.email">
+          <input type="text" id="lemail" name="email" placeholder="Your email.." v-model="user.email" readonly>
         </div>
       </div>
 
@@ -74,14 +65,15 @@
 </template>
 
 <script>
+  import axios from 'axios';
+  import {APIENDPOINT} from '../../app.config';
+
 
   export default {
     name: 'edit' ,// this is the name of the component
     data(){
       return {
-        file: '',
         showPreview: false,
-        imagePreview: '',
         user:{
           nickName:"",
           firstname:"",
@@ -93,70 +85,46 @@
       }
 
     },
-
     methods: {
-
-      handleFileUpload(){
-        /*
-          Set the local file variable to what the user has selected.
-        */
-        this.file = this.$refs.file.files[0];
-
-        /*
-          Initialize a File Reader object
-        */
-        let reader  = new FileReader();
-
-        /*
-          Add an event listener to the reader that when the file
-          has been loaded, we flag the show preview as true and set the
-          image to be what was read from the reader.
-        */
-        reader.addEventListener("load", function () {
-          this.showPreview = true;
-          this.imagePreview = reader.result;
-        }.bind(this), false);
-
-        /*
-          Check to see if the file is not empty.
-        */
-        if( this.file ){
-          /*
-            Ensure the file is an image file.
-          */
-          if ( /\.(jpe?g|png|gif)$/i.test( this.file.name ) ) {
-            /*
-              Fire the readAsDataURL method which will read the file in and
-              upon completion fire a 'load' event which we will listen to and
-              display the image in the preview.
-            */
-            reader.readAsDataURL( this.file );
-          }
-        }
-      },
       submit(){
 
         let formData = new FormData();
-        formData.append('avatar', this.file);
         formData.append('nickName',this.user.nickName);
         formData.append('fullName', this.user.fullName);
         formData.append('email',this.user.email);
         formData.append('gender',this.user.gender);
         formData.append('about',this.user.about);
 
-        axios.post( '/file-preview',//change here
-          formData,
-          {
-            headers: {
-              'Content-Type': 'multipart/form-data'
-            }
-          }
-        ).then(function(){
+        var editUser = {
+          lastName: this.user.lastname,
+          firstName: this.user.firstname,
+          gender: this.user.gender,
+          bio: this.user.about
+        };
+
+        axios.put(APIENDPOINT + '/users/' + this.user.nickName, editUser)
+          .then(resp=>{
+            console.log('updated!')
             this.$swal('', 'Succssefully edited!', 'OK');
-        }).catch(function(){
+          }).catch(ex => {
+          console.log('exception : ' + ex)
           this.$swal('', 'Failure in editing', 'OK');
         });
       }
+    },
+    created() {
+      var app = this;
+      axios.get(APIENDPOINT + '/users/' + this.$store.state.getNickName())
+        .then(response=>{
+        app.user.nickName = response.data.nickName;
+        app.user.lastname = response.data.lastName;
+        app.user.firstname = response.data.firstName;
+        app.user.email = response.data.email;
+        app.user.gender = response.data.gender;
+        app.user.about = response.data.bio;
+      }).catch(err=>{
+
+      })
     }
   }
 

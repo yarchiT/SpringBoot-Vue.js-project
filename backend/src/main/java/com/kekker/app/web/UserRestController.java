@@ -4,6 +4,7 @@ import com.kekker.app.exception.CustomException;
 import com.kekker.app.model.User;
 import com.kekker.app.repository.UserRepository;
 import com.kekker.app.service.UserService;
+import com.kekker.app.view.UserEditDto;
 import com.kekker.app.view.UserRegisterDto;
 import com.kekker.app.view.UserView;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -123,13 +124,13 @@ public class UserRestController {
 
     //Update
     @PutMapping("/users/{nickName}")
-    public User update(@PathVariable("nickName") String nickName, @Valid @RequestBody User userDetails){
+    public User update(@PathVariable("nickName") String nickName, @Valid @RequestBody UserEditDto userEdit){
         User user = getUserByNickName(nickName);
-        if (user == null)
-            return null;
-
-        userDetails.setNickName(nickName);
-        return userRepository.save(userDetails);
+        user.setFirstName(userEdit.getFirstName());
+        user.setLastName(userEdit.getLastName());
+        user.setGender(userEdit.getGender());
+        user.setBio(userEdit.getBio());
+        return userRepository.save(user);
     }
 
 }
