@@ -5,10 +5,8 @@ import com.kekker.app.model.Kek;
 import com.kekker.app.repository.CommentRepository;
 import com.kekker.app.repository.KekRepository;
 import com.kekker.app.repository.UserRepository;
-<<<<<<< HEAD
 import com.kekker.app.utils.Utils;
-=======
->>>>>>> 40fc81ae744c3b5a0b09325152df387c3cb84304
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

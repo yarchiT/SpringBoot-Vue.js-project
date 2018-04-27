@@ -56,10 +56,6 @@
       },
       props:{
           comments:{
-<<<<<<< HEAD
-
-          }
-=======
               type:Array,
               required: true
           },
@@ -67,7 +63,7 @@
             type: Number,
             required: true
         }
->>>>>>> 40fc81ae744c3b5a0b09325152df387c3cb84304
+
       },
     computed :{
       isButtonDisabled : function()
@@ -78,15 +74,10 @@
 
       methods:{
         getImgUrl(pet) {
-<<<<<<< HEAD
+
           if(!pet || /^\s*$/.test(pet)){
             pet = "empty.png"
           }
-          var images = require.context('../../assets/');
-          return images('./' + pet )
-        },
-      }
-=======
           var images = require.context('../../assets/');
           return images('./' + pet )
         },
@@ -107,7 +98,6 @@
     created() {
     this.currentUserNickName = this.$store.state.getNickName();
     }
->>>>>>> 40fc81ae744c3b5a0b09325152df387c3cb84304
   }
 </script>
 
