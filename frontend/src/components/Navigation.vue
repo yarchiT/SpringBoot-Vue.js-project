@@ -108,7 +108,7 @@
 
   .searchButton {
     position: absolute;
-    right: -50px;
+    right: -95px;
     width: 79px;
     height: 36px;
     border: 1px solid #00B4CC;
