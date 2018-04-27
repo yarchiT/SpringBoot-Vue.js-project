@@ -41,6 +41,10 @@
 
 <script>
   import Comments from './comments.vue'
+  import Vue from 'vue';
+  import VueSweetalert2 from 'vue-sweetalert2';
+
+  Vue.use(VueSweetalert2);
   export default {
     name: 'keks', //this is the name of the component
 
@@ -112,7 +116,7 @@
         //   });
         //
         if(isDeleted){
-          alert("Deleted successfully!")
+          this.$swal("Deleted successfully!")
         }
 
 
