@@ -39,13 +39,24 @@
         <!--Right column-->
         <div class="w3-twothird">
           <div v-show="isOwnProfile" class="clearfix">
+            <p class="userToUserText" style="float: left;">You have {{keksCount}} keks</p>
             <form>
               <textarea v-model="newKekText"></textarea>
             </form>
             <button class="post-btn add-btn" v-bind:class="{'disabled-btn': isButtonDisabled }" :disabled="isButtonDisabled" v-on:click="addKek">Add kek</button>
           </div>
-          <div id="">
 
+          <div v-show="!isOwnProfile" id="userToUserInfo" class="clearfix">
+            <p class="userToUserText" style="float: left;">{{userDetails.nickName}} has {{keksCount}} keks</p>
+            <div v-show="areYouFollowingHim">
+              <p class="userToUserText">You are following <strong>{{userDetails.nickName}}</strong></p>
+              <button class="unfollow-btn" v-on:click="unFollowPerson">- Unfollow</button>
+            </div>
+
+            <div v-show="!areYouFollowingHim">
+              <p class="userToUserText">Follow <strong>{{userDetails.nickName}} on KEKKER</strong></p>
+              <button class="follow-btn" v-on:click="followPerson">+ Follow</button>
+            </div>
           </div>
 
 
@@ -82,7 +93,11 @@
             },
             isAddRequestPending: false,
             newKekText: "",
-            isOwnProfile: false
+            isOwnProfile: false,
+            areYouFollowingHim: false,
+            keksCount: 0,
+          // user who is logged in right now
+          currentUserNickName: ''
         }
     },
     components:{
@@ -118,10 +133,33 @@
         return this.getImgUrl("disloys.svg")
       },
 
-		edit(){
+		  edit(){
         this.$router.push('/edit');
       },
-
+      followPerson(){
+		    var app = this;
+        userService.followPerson(this.currentUserNickName, this.userDetails.nickName)
+          .then(function (res) {
+            if(res.data == "OK"){
+              app.areYouFollowingHim = true;
+            }
+          })
+          .catch(function (err) {
+              console.log("Follow"+err);
+          });
+      },
+      unFollowPerson(){
+        var app = this;
+        userService.unfollowPerson(this.currentUserNickName, this.userDetails.nickName)
+          .then(function (res) {
+            if(res.data == "OK"){
+              app.areYouFollowingHim = false;
+            }
+          })
+          .catch(function (err) {
+            console.log("Unfollow: "+err);
+          });
+      },
       addKek:function()
       {
         console.log('sending kek...')
@@ -337,9 +375,10 @@
     created() {
       var profileUsersNickName = this.$route.params.nickname;
       var currentUser = JSON.parse(window.localStorage.getItem('lbUser'));
+      this.currentUserNickName = currentUser.nickName;
 
       if (profileUsersNickName == null) {
-        profileUsersNickName = currentUser.nickName;
+        profileUsersNickName = this.currentUserNickName;
         if (currentUser == null)
           return;
       }
@@ -350,10 +389,19 @@
       var profile = this;
       userService.getUserInfo(profileUsersNickName)
         .then(function (res) {
-          console.log("resData: " + JSON.stringify(res.data));
           userData = res.data;
 
           profile.fillUserProfileInfo(userData);
+
+          if(!profile.isOwnProfile){
+            userService.findIfYouFollowUser(profile.currentUserNickName, profileUsersNickName)
+              .then(function (res) {
+                profile.areYouFollowingHim = res.data;
+              })
+              .catch(function (err) {
+
+              });
+          }
 
           userService.getKeks(userData.nickName)
             .then(function (res) {
@@ -369,8 +417,9 @@
                   comments: userService.getCommentsOfKek(el.commentsDto),
                   showComments: false
                 });
+
               });
-              console.log(res.data);
+              profile.keksCount = profile.userDetails.keks.length;
             })
             .catch(function (err) {
               console.log(err);
@@ -384,6 +433,12 @@
   }
 </script>
 <style>
+
+  .userToUserText{
+    font-size: x-large;
+    color: #728ba1;
+
+  }
 
   .editProfileBtn{
     background-color: dodgerblue;
@@ -426,6 +481,32 @@
     cursor: pointer;
     background-color: #4CAF50; /* Green */
     float:right;
+  }
+
+  .follow-btn {
+    border: none;
+    color: white;
+    padding: 5px 12px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    background-color: #3597b4;
+  }
+
+  .unfollow-btn {
+    border: none;
+    color: white;
+    padding: 5px 12px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    background-color: #ca435a;
   }
   .disabled-btn {
     background-color: #4caf50b5;

@@ -15,6 +15,18 @@ export default {
     });
 
   },
+// check if you follow this fucking dick
+  findIfYouFollowUser(myNickName, hisNickName){
+    return new Promise(function (resolve, reject) {
+      axios.get(APIENDPOINT + '/following/'+myNickName+"/"+hisNickName)
+        .then(function (res) {
+          resolve(res);
+        })
+        .catch(function (err) {
+          reject(err);
+        })
+    });
+  },
 
   getKeks(nickName) {
     return new Promise(function (resolve, reject) {
@@ -55,6 +67,40 @@ export default {
       });
     }
     return reactions;
+  },
+  followPerson(myNickName, hisNickName){
+    return new Promise(function (resolve, reject) {
+      var bodyFormData = new FormData();
+      bodyFormData.set('myNickName', myNickName);
+      bodyFormData.set('hisNickName', hisNickName);
+      axios.post(APIENDPOINT + '/follow', bodyFormData)
+        .then(function (res) {
+          resolve(res);
+        })
+        .catch(function (err) {
+          if(err.response){
+            reject(err.response.status);
+          }
+          reject("follow error")
+        })
+    });
+  },
+  unfollowPerson(myNickName, hisNickName) {
+    return new Promise(function (resolve, reject) {
+      var bodyFormData = new FormData();
+      bodyFormData.set('myNickName', myNickName);
+      bodyFormData.set('hisNickName', hisNickName);
+      axios.post(APIENDPOINT + '/unfollow', bodyFormData)
+        .then(function (res) {
+          resolve(res);
+        })
+        .catch(function (err) {
+          if (err.response) {
+            reject(err.response.status);
+          }
+          reject("unfollow error")
+        })
+    });
   }
 
 }

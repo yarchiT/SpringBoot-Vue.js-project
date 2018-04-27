@@ -5,6 +5,7 @@ import com.kekker.app.model.User;
 import com.kekker.app.repository.UserRepository;
 import com.kekker.app.service.UserService;
 import com.kekker.app.view.UserRegisterDto;
+import com.kekker.app.view.UserView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -90,6 +91,27 @@ public class UserRestController {
     public Collection<?> getUsersFollowings(@PathVariable("nickName") String nickName) {
         return userRepository.findFollowersByNickName(nickName);
     }
+
+    //Get by
+    @GetMapping("/following/{myNickName}/{hisNickName}")
+    public boolean findIfYouFollowUser(@PathVariable("myNickName") String myNickName, @PathVariable("hisNickName") String hisNickName) {
+        UserView user =  userRepository.findIfYouFollowUser(myNickName, hisNickName);
+        return user != null;
+    }
+
+
+    @PostMapping("/follow")
+    public HttpStatus followGuy(@RequestParam String myNickName,@RequestParam String hisNickName) {
+        userRepository.followGuy(myNickName, hisNickName);
+        return HttpStatus.OK;
+    }
+
+    @PostMapping("/unfollow")
+    public HttpStatus unfollowGuy(@RequestParam String myNickName,@RequestParam String hisNickName) {
+        userRepository.unfollowGuy(myNickName, hisNickName);
+        return HttpStatus.OK;
+    }
+
 
     //Create new
     @PostMapping("/users")
