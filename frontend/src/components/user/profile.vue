@@ -15,7 +15,7 @@
 
           <div class="w3-white w3-text-grey w3-card-4">
             <div class="w3-display-container">
-              <img :src="userDetails.avatarUrl" style="width:100%" alt="Avatar">
+              <img :src="getImgUrl(userDetails.avatarUrl)" style="width:100%" alt="Avatar">
               <div class="w3-display-bottomleft w3-container w3-text-white" style="background-color: #278a99">
                 <h2>{{userDetails.nickName}}</h2>
               </div>
@@ -116,15 +116,19 @@
     },
     methods:{
         fillUserProfileInfo: function (userData) {
+          console.log('avatar ' + userData.avatarUrl)
             this.userDetails.nickName = userData.nickName,
             this.userDetails.firstName = userData.firstName,
             this.userDetails.lastName = userData.lastName,
             this.userDetails.gender = userData.gender,
             this.userDetails.email = userData.email,
-            this.userDetails.avatarUrl = "http://localhost:8181/static/img/user.1a5dfca.jpg",
+            this.userDetails.avatarUrl = userData.avatarUrl,
             this.userDetails.bio = userData.bio;
         },
       getImgUrl(pet) {
+        if(!pet || /^\s*$/.test(pet)){
+          pet = "empty.png"
+        }
         var images = require.context('../../assets/');
         return images('./' + pet )
       },
@@ -176,8 +180,10 @@
         axios.post(APIENDPOINT + "/keks", kekData)
           .then(response => {
             // JSON responses are automatically parsed.
-            console.log('dummy request success')
-            this.userDetails.keks.push(response.data);
+            console.log('dummy request success ' + JSON.stringify(response.data))
+            var kek = response.data;
+            kek.owner_avatar = this.userDetails.avatarUrl;
+            this.userDetails.keks.push(kek);
             //this.followersList = response.data;
           })
           .catch(e => {

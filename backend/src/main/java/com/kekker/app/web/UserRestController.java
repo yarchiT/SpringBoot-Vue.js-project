@@ -69,11 +69,13 @@ public class UserRestController {
             return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body("Email is taken");
         }
 
+
+        int avatarId = 1 + (int)(Math.random() * ((23)));
         User registeredUser = new User();
         registeredUser.setPassword(user.getPassword());
         registeredUser.setNickName(user.getNickName());
         registeredUser.setEmail(user.getEmail());
-        registeredUser.setAvatarUrl(null);
+        registeredUser.setAvatarUrl(avatarId + ".png");
         registeredUser.setFirstName(user.getFirstName());
         registeredUser.setLastName(user.getLastName());
         return ResponseEntity.ok(userService.signup(registeredUser));

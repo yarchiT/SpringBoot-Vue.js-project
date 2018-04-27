@@ -34,7 +34,6 @@ public class User implements Serializable{
     @Size(max=120)
     private String lastName;
 
-    @Null
     private String avatarUrl;
 
     @Null
