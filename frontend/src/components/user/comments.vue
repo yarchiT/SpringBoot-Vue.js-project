@@ -4,18 +4,6 @@
   <div class="comment-list">
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 
-<!--    <ul>
-      <li v-for="comment in comments" transition="slide" v-bind:data-owner="comment.owner_id">
-        <div class="profile">
-          <img :src="comment.owner_avatar" alt="">
-        </div>
-        <div class="msg"><div class="msg-body">
-          <p class="name">{{comment.owner_nickname }}<span class="date">{{comment.date}}</span></p>
-          <p>{{comment.text}}</p>
-        </div></div>
-      </li>
-    </ul>-->
-
     <div class="row row-comment" v-for="comment in comments" transition="slide" v-bind:data-owner="comment.owner_id">
       <div class="col-sm-1">
         <div class="thumbnail">
@@ -84,12 +72,18 @@
         addComent(){
           var comments = this;
           if(this.newCommentText !== ''){
-            userService.addComment(this.kekId, this.newCommentText)
+            userService.addComment(this.kekId, this.newCommentText, this.currentUserNickName)
               .then(function (res) {
-
+                console.log(JSON.stringify(res.data));
+                comments.comments.push({
+                  text: res.data.text,
+                  date: res.data.creationDate,
+                  owner_id: res.data.owner.nickName,
+                  owner_avatar: res.data.owner.avatarUrl
+                });
               })
               .catch(function (err) {
-
+                console.log(err);
               });
             comments.newCommentText = '';
           }
