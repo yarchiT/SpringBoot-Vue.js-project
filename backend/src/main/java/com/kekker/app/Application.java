@@ -1,9 +1,8 @@
-package io.gitlab.randyyaj;
-
+package com.kekker.app;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 
-@SpringBootApplication(scanBasePackages="io.gitlab.randyyaj")
+@SpringBootApplication()
 public class Application {
 
     public static void main(String[] args) {
