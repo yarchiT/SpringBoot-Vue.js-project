@@ -6,8 +6,8 @@ Basic functions:
 - create keks ("tweets");  
 - comment on keks;  
 - follow/unfollow people;  
-- view your timeline (keks from people you follow) and your onw profile;  
-- search for new user by their nickname;  
+- view your timeline (keks from people you follow) and your own profile;  
+- search for people by their nickname;  
 
 # Technology stack
 
